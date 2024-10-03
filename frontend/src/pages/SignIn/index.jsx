@@ -8,19 +8,17 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
 import { useNavigate } from "react-router-dom";
 
-
-
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const { sessionLogin } = useAuth();
-
-  
-
   function handleSessionLogin() {
-  
+    if (!email || !password) {
+      toast.error("Senha ou e-mail inválido.");
+      return;
+    }
     if (password.length < 6) {
       toast.error("Senha ou e-mail inválido.");
       return;
