@@ -7,7 +7,7 @@ import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
 import { Container, ProfileContent, FormContainer } from "./style";
 
-import Lottie2 from "react-lottie";
+
 import { toast } from "react-toastify";
 
 
