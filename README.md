@@ -1,6 +1,7 @@
 
 
 FoodExplorer is a full-stack application, using the technologies learned during the Explorer course, simulating a fictitious restaurant according to the layout provided in Figma. The food explorer has two personas: the admin and the user.
+
 <a href="https://github.com/kennedysferreira/apiFoodExplorer">Link to api</a> 
 <h1>Installation</h1>
 ### **_Prerequisites_**
