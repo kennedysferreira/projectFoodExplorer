@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {api} from "../services/api"
+import { api } from "../service/api";
 import { createContext, useState } from "react";
 
 export const PlateContext = createContext();
