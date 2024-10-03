@@ -10,6 +10,8 @@ import { Container, ProfileContent, FormContainer } from "./style";
 import Lottie2 from "react-lottie";
 import { toast } from "react-toastify";
 
+
+
 export function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
