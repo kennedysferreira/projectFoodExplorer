@@ -1,154 +1,127 @@
 
 
-O FoodExplorer é uma aplicação fullstack, utilizando as tecnologias aprendidas durante o curso Explorer, simulando um restaurante fictício de acordo com o layout disponibilizado no Figma.
+FoodExplorer is a full-stack application, using the technologies learned during the Explorer course, simulating a fictitious restaurant according to the layout provided in Figma. The food explorer has two personas: the admin and the user.
 
-O food explorer possui duas personas: o admin e o usuário;
+<a href="https://github.com/kennedysferreira/apiFoodExplorer">Link to api</a> 
+<h1>Installation</h1>
+### **_Prerequisites_**
+
+Antes de começar, você vai precisar ter instalado em sua máquina <a target="_blank">[NodeJs](https://nodejs.org/en) </a>, uma ferramenta de versionamento como o <a target="_blank">[GIT](https://git-scm.com/) </a>. Além disto é recomendado um editor de código, por exemplo o<a target="_blank">[VSCode](https://code.visualstudio.com/) </a>.
+### **_Configuration_**
+
+Follow these steps to configure and run the application locally: 
+- Clone the repository:
+- ```bash git clone https://github.com/kennedysferreira/projectFoodExplorer.git ``
+- ` - Enter the directory and install the dependencies:
+- ```bash npm install ```
+- - Fill in the variables following the .env. example:
+  - ```bash VITE_BASE_URL=http://localhost:3333 ```
+  - - Run the local server: ```bash npm run dev ```
+    - - If no error occurs, the following message will be displayed:
+      - ```bash VITE v5.1.1 ready in 215 ms ➜ Local: http://localhost:5173 ```
 
 
 
-<h1 >Instalação</h1>
-
-### **_Pré-requisitos_**
-
-Antes de começar, você vai precisar ter instalado em sua máquina <a target="_blank">[NodeJs](https://nodejs.org/en) </a>, uma ferramenta de versionamento como o <a target="_blank">[GIT](https://git-scm.com/) </a>.
-Além disto é recomendado um editor de código, por exemplo o<a target="_blank">[VSCode](https://code.visualstudio.com/) </a>.
-
-### **_Configuração_**
-
-Siga os seguintes passos para configurar e rodar a aplicação localmente:
-
-- Clone o repositório:
-
-  ```bash
-    git clone https://github.com/kennedysferreira/projectFoodExplorer.git
-  ```
-
-- Entre no diretório e instale as dependências:
-
-  ```bash
-    npm install
-  ```
-
-- Preencha as variáveis seguindo o .env.exemplo:
-
-  ```bash
-  VITE_BASE_URL=http://localhost:3333
-  ```
-
-- Rode o servidor local:
-
-  ```bash
-    npm run dev
-  ```
-
-- Caso não ocorra nenhum erro a seguinte mensagem será apresentada:
-
-  ```bash
-    VITE v5.1.1  ready in 215 ms
-
-  ➜  Local:   http://localhost:5173
-  ```
-
-- Para utilizar todo dos recursos acesse o localhost indicado pelo VITE:
+-To use all the resources, access the localhost indicated by VITE:
 
   `http://localhost:5173`
   <br/>
   <br/>
 
-<h1 >Recursos</h1>
+<h1 >Resources</h1>
 
-A aplicação possui duas personas:
+The application has two personas:
+-Customer:
 
-- Cliente:
-
-  - Mostrar todos os pratos
-  - Mostrar um prato especifico
-  - Pesquisar por um prato ou ingrediente
-  - Adicionar ao carrinho os pedidos
-  - Fazer um pedido
-  - Adicionar prato aos favoritos
-  - Acessar todos os favoritos
-  - Acessar histórico de pedidos
-  - Acessar status do pedido
-  - Atualizar informações da conta
-  - Acessar página com informações sobre o restaurante
+  - Show all dishes
+  - Show a specific dish
+  - Search for a dish or ingredient
+  - Add orders to cart - Place an order
+  - Add dish to favorites
+  - Access all favorites
+  - Access order history
+  - Access order status
+  - Update account information
+  - Access restaurant information page
     <br/>
     <br/>
 
-- Administrador:
+- Administrator:
 
-  - Mostrar todos os pratos
-  - Mostrar um prato especifico
-  - Pesquisar por um prato ou ingrediente
-  - Acessar todos os pedidos
-  - Acessar status do pedido
-  - Atualizar status de pedidos
-  - Atualizar informações da conta
-  - Acessar página com informações sobre o restaurante
-  - Cadastrar um novo prato
-  - Atualizar um prato
-  - Deletar um prato
-  - Atualizar um pedido
+  - Show all dishes
+  - Show a specific dish
+  - Search for a dish or ingredient
+  - Access all orders
+  - Access order status
+  - Update order status
+  - Update account information
+  - Access restaurant information page
+  - Register a new dish
+  - Update a dish
+  - Delete a dish
+  - Update an order
     <br/>
     <br/>
 
-<h1 >Funcionamento</h1>
+<h1 >Operation</h1>
 
 <br/>
 
-- ### **Fazer login**
+- ### **Log in**
 
-  Assim que acessar a aplicação a tela para fazer login será apresentada com a opção de criação de conta para o primeiro acesso. Se todos os dados estiverem corretos é liberado o acesso.
+  As soon as you access the application, the login screen will appear with the option to create an account for the first time. If all the data is correct, access is granted.
   <br/>
   <br/>
 
-- ### **Usuário**
+- ### **User**
 
-  Dentro da aplicação o usuário tem os seguintes acessos:
+ Within the application, the user has the following accesses:
 
-  -`/` Página Home que é apresentada após o login.
+  -`/` Home page that appears after logging in.
 
-  -`/plateview/:id` Página para visualização de um prato em detalhes, clicando no card que se encontra na Página inicial.
+  -`/plateview/:id` Page for viewing a dish in detail by clicking on the card on the Home page.
 
-  -`/profile` Página Acessada por um botão localizado no `Header` que permite o usuário alterar os dados de sua conta.
+  -`/profile` Page Accessed by a button located on the `Header` that allows the user to change their account details.
 
-  -`/about` Página Acessada por um botão localizado no `Header` que contem algumas informações sobre o restaurante.
+  -`/about` Page Accessed by a button located on the `Header` which contains some information about the restaurant.
 
-  -`/favorites` Página Acessada por um botão localizado no `Header` que exibe todos os pratos adicionados aos favoritos.
+  -`/favorites` Page Accessed by a button located on the `Header` that displays all the dishes added to the favorites.
 
-  -`/order-history` Página Acessada por um botão localizado no `Header` que exibe o histórico de pedidos.
+  -`/order-history` Page Accessed by a button located on the `Header` that displays the order history.
 
-  -`/cart` Página Acessada por um botão localizado no `Header` que exibe os pratos adicionados no carrinho.
+  -`/cart`Page Accessed by a button located on the `Header` that displays the dishes added to the cart.
 
-  -`/payment/:id` Página Acessada por um botão localizado na página de carrinho que gera uma solicitação e permite o usuário selecionar a forma de pagamento.
+  -`/payment/:id`Page Accessed by a button located on the cart page that generates a request and allows the user to select the payment method.
 
-  -`/payment/qrcode/:id` Página Acessada por um botão localizado na página de pagamentos, o redirecionamento leva para uma página que simula um pagamento e atualiza o status do prato.
+  -`/payment/qrcode/:id` Page Accessed via a button located on the payment page, the redirect leads to a page that simulates a payment and updates the status of the dish.
   <br/>
 
-- ### **Administrador**
+- ### **Administrator**
 
-  Além das páginas disponíveis para os usuários o administrador tem acesso a rotas especificas:
+ In addition to the pages available to users, the administrator has access to specific routes:
 
-  -`/newplate` Página Acessada por um botão localizado no `Header`
-  que permite adicionar um novo prato.
+  -`/newplate` Page Accessed by a button located on the `Header` that allows you to add a new dish.
 
-  -`/editplate/:id` Página Acessada por um botão localizado no card do prato ná página Home.
+  -`/editplate/:id` Page Accessed via a button located on the plate card on the Home page.
 
-  -`/order-history` Página Acessada por um botão localizado no `Header` que permite atualizar o status de todos os pedidos disponíveis.
+  -`/order-history` Page Accessed by a button located on the `Header` that allows you to update the status of all available orders.
 
   <br/>
   <br/>
 
-<h1 >Requisitos</h1>
+<h1 >Requirements</h1>
 
--  O admin pode controlar o status de cada pedido, por um campo do tipo select. Os pedidos irão aparecer em uma tabela ao clicar em Histórico de Pedidos.
--  O usuário pode marcar um prato como favorito, basta clicar no coração que aparece em cada prato.
--  O usuário pode excluir um prato do carrinho e o valor total do pedido é atualizado automaticamente.
--  Ao clicar no botão meu pagamento, o usuário é redirecionado para uma tela onde irá ver o seu pedido, a soma e os métodos de pagamento.
--  O usuário pode incluir itens no carrinho, clicando no botão incluir. Já a quantidade é controlada pelos botões “-” e “+”.
--  Um projeto estruturado, com uma boa organização das pastas, e boa divisão dos componentes.
--  Funções, variáveis, classes, arquivos, tabelas e todos os outros elementos do código tem nomes significativos, de acordo com as boas práticas no mercado.
--  Aplicação é responsiva, de acordo com o conceito Mobile First seguindo o modelo do Figma;
+- The admin can control the status of each order via a select field. Orders will appear in a table by clicking on Order History.
+- The user can mark a dish as a favorite by clicking on the heart that appears on each dish.
+- The user can delete a dish from the cart and the total value of the order is updated automatically.
+- By clicking on the my payment button, the user is redirected to a screen where they will see their order, the sum and the payment methods.
+- The user can add items to the cart by clicking on the add button. The quantity is controlled by the "-" and "+" buttons.
+- A structured project, with a good organization of folders and a good division of components.
+- Functions, variables, classes, files, tables and all the other elements of the code have meaningful names, in line with good market practice.
+- The application is responsive, according to the Mobile First concept, following the Figma model;
+*** Translated with www.DeepL.com/Translator (free version) ***
+
+
   <br/>
   <br/>
 
