@@ -27,13 +27,14 @@ export function Profile() {
     localStorage.getItem("@foodexplorer:profile")
   );
 
+  
 
   async function handleUpdateProfile() {
     if (
       (newPassword && newPassword.length < 6) ||
       (oldPassword && oldPassword.length < 6)
     ) {
-      toast.error("Senha inválida");
+      toast.dark("Senha inválida");
       return;
     }
     await updateAccount({ name, email, newPassword, oldPassword });
@@ -65,9 +66,7 @@ export function Profile() {
       <Header />
       <main>
         <ProfileContent>
-          <div className="avatar-animate">
-            <Lottie2 options={defaultOptions} />
-          </div>
+         
           <div className="user-info">
             <p>{profileInfo.name}</p>
             <p>{profileInfo.email}</p>
