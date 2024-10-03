@@ -1,5 +1,5 @@
 import { Container } from "./style";
-import "@splidejs/react-splide/css/sea-green";
+import "@splidejs/react-splide/css";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 export function Section({ title, children }) {
@@ -7,7 +7,7 @@ export function Section({ title, children }) {
     type: "loop",
     fixedWidth: 304,
     gap: 27,
-    focus: "center",
+    focus: "center" ,
     rewind: true,
     rewindByDrag: true,
     rewindSpeed: 100,
