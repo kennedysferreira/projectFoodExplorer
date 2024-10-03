@@ -20,7 +20,7 @@ Siga os seguintes passos para configurar e rodar a aplicação localmente:
 - Clone o repositório:
 
   ```bash
-    git clone https://github.com/Neves-Rafael/FoodExplorer-FrontEnd
+    git clone https://github.com/kennedysferreira/projectFoodExplorer.git
   ```
 
 - Entre no diretório e instale as dependências:
