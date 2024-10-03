@@ -16,7 +16,7 @@ export function SignIn() {
   const { sessionLogin } = useAuth();
   function handleSessionLogin() {
     if (!email || !password) {
-      toast.error("Senha ou e-mail inválido.");
+      toast.error("Preencha todos os campos.");
       return;
     }
     if (password.length < 6) {

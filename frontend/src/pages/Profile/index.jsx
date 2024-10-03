@@ -10,7 +10,6 @@ import { Container, ProfileContent, FormContainer } from "./style";
 import Lottie2 from "react-lottie";
 import { toast } from "react-toastify";
 
-
 export function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,7 +31,7 @@ export function Profile() {
       (newPassword && newPassword.length < 6) ||
       (oldPassword && oldPassword.length < 6)
     ) {
-      toast.dark("Senha inválida");
+      toast.error("Senha inválida");
       return;
     }
     await updateAccount({ name, email, newPassword, oldPassword });

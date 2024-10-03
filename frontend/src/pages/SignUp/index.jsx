@@ -15,14 +15,15 @@ export function SignUp() {
   const { createAccount } = useAuth();
 
   const navigate = useNavigate();
+
   async function handleSignUp() {
     if (name.length < 3 || email.length < 6) {
-      toast.dark("Preencha os campos com informações válidas.");
+      toast.error("Preencha os campos com informações válidas.");
       return;
     }
 
     if (password.length < 6) {
-      toast.dark("Senha inválida, verifique e tente novamente.");
+      toast.error("Senha inválida, verifique e tente novamente.");
       return;
     }
 
