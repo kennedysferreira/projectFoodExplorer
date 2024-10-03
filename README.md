@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 
 O FoodExplorer é uma aplicação fullstack, utilizando as tecnologias aprendidas durante o curso Explorer, simulando um restaurante fictício de acordo com o layout disponibilizado no Figma.
@@ -154,7 +153,3 @@ A aplicação possui duas personas:
   <br/>
 
 
-=======
-# projectFoodExplorer
- 
->>>>>>> parent of c1ea7f0 (Update README.md)
