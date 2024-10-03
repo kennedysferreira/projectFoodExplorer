@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { PlateContext } from "../../hooks/plateRequest";
 
+
 export function Home() {
   const navigate = new useNavigate();
 

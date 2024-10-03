@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.COLORS.DARK_200};
-  border: solid 2px ${({ theme }) => theme.COLORS.DARK_300};
+ 
 
   display: flex;
   flex-direction: column;
@@ -21,7 +20,6 @@ export const Container = styled.div`
   transition: all 200ms ease-in-out;
 
   &:hover {
-    background-color: ${({ theme }) => theme.COLORS.DARK_500};
     filter: brightness(1.2);
   }
 

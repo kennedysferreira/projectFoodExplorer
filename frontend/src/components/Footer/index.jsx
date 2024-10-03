@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <Container>
       <FoodExplorer />
-      <p>© {actualYear.getUTCFullYear()} - Todos os direitos reservados.</p>
+      <p>© Kennedy Ferreira {actualYear.getUTCFullYear()} - Todos os direitos reservados.</p>
     </Container>
   );
 }

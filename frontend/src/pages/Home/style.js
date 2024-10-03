@@ -14,7 +14,7 @@ export const Container = styled.div`
     scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
-      width: 12px;
+      width: 10px;
     }
 
     &::-webkit-scrollbar-track {
@@ -23,7 +23,7 @@ export const Container = styled.div`
 
     &::-webkit-scrollbar-thumb {
       background-color: ${({ theme }) => theme.COLORS.LIGHT_600};
-      border-radius: 2rem;
+      border-radius: 1rem;
     }
   }
 `;

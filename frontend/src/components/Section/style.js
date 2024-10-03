@@ -4,6 +4,7 @@ export const Container = styled.section`
   margin: 6rem 0 4rem 2rem;
   position: relative;
   max-width: 110rem;
+  
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
     margin: 6rem 8rem 10rem 8rem;
