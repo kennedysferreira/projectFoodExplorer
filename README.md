@@ -5,9 +5,10 @@ FoodExplorer is a full-stack application, using the technologies learned during 
 <a href="https://github.com/kennedysferreira/apiFoodExplorer">Link to api</a>
 <a href="https://foodexplorerksf.netlify.app/">Link deploy</a>
 <h1>Installation</h1>
+
 ### **_Prerequisites_**
 
-Antes de começar, você vai precisar ter instalado em sua máquina <a target="_blank">[NodeJs](https://nodejs.org/en) </a>, uma ferramenta de versionamento como o <a target="_blank">[GIT](https://git-scm.com/) </a>. Além disto é recomendado um editor de código, por exemplo o<a target="_blank">[VSCode](https://code.visualstudio.com/) </a>.
+Before you start, you will need to have installed on your machine <a target="_blank">[NodeJs](https://nodejs.org/en) </a>,a versioning tool such as <a target="_blank">[GIT](https://git-scm.com/) </a>. A code editor is also recommended, for example<a target="_blank">[VSCode](https://code.visualstudio.com/) </a>.
 ### **_Configuration_**
 
 Follow these steps to configure and run the application locally: 
