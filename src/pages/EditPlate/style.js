@@ -21,7 +21,7 @@ export const Section = styled.section`
     border-radius: 0.8rem;
     border: none;
     height: 20rem;
-    background-color: ${({ theme }) => theme.COLORS.DARK_800};
+    background-color: ${({ theme }) => theme.COLORS.DARK_SURFACE};
   }
 
   p {
@@ -139,11 +139,11 @@ export const Ingredients = styled.div`
   border-radius: 8px;
   gap: 1rem;
   background-color: ${({ theme, $isNew }) =>
-    $isNew ? "transparent" : theme.COLORS.DARK_900};
+    $isNew ? "transparent" : theme.COLORS.DARK_ELEVATED};
 `;
 
 export const UploadImage = styled.label`
-  background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+  background-color: ${({ theme }) => theme.COLORS.TOMATO};
   height: 4.8rem;
   display: flex;
   align-items: center;
@@ -171,7 +171,7 @@ export const ButtonAction = styled.div`
   gap: 4rem;
 
   button:nth-child(1) {
-    background-color: ${({ theme }) => theme.COLORS.DARK_100};
+    background-color: ${({ theme }) => theme.COLORS.DARK};
   }
 
   @media (max-width: 1120px) {

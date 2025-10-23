@@ -13,7 +13,7 @@ export const Container = styled.div`
     transition: all 300ms ease-in-out;
 
     &:hover {
-      color: ${({ theme }) => theme.COLORS.CAKE_200};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
   }
 `;

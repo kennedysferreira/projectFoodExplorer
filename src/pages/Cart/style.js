@@ -98,7 +98,7 @@ export const RequestList = styled.div`
 
   .delete-plate-request {
     background: none;
-    color: ${({ theme }) => theme.COLORS.TOMATO_400};
+    color: ${({ theme }) => theme.COLORS.TOMATO};
   }
 `;
 
@@ -117,6 +117,6 @@ export const Options = styled.div`
   button:nth-child(2) {
     width: 10rem;
     font-size: 1.4rem;
-    background-color: ${({ theme }) => theme.COLORS.DARK_800};
+    background-color: ${({ theme }) => theme.COLORS.DARK_SURFACE};
   }
 `;

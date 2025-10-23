@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Confirm = styled.div`
-  background-color: ${({ theme }) => theme.COLORS.DARK_600};
+  background-color: ${({ theme }) => theme.COLORS.DARK_BORDER};
   position: absolute;
   width: 280px;
   border-radius: 4px;

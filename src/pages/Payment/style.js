@@ -98,7 +98,7 @@ export const RequestList = styled.div`
     background: none;
     text-align: start;
     font-size: 1.4rem;
-    color: ${({ theme }) => theme.COLORS.TOMATO_400};
+    color: ${({ theme }) => theme.COLORS.TOMATO};
   }
 
   .mobile-payment {
@@ -136,7 +136,7 @@ export const RequestList = styled.div`
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+      background-color: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
       border-radius: 20px;
     }
   }
@@ -267,7 +267,7 @@ export const CreditPayment = styled.div`
   }
 
   #finish-payment {
-    background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+    background-color: ${({ theme }) => theme.COLORS.TOMATO};
     width: 100%;
     border: none;
     padding: 3rem 0;

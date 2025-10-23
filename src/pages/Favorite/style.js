@@ -73,7 +73,7 @@ export const Plate = styled.div`
   p {
     font-size: 1.2rem;
     line-height: 160%;
-    color: ${({ theme }) => theme.COLORS.TOMATO_400};
+    color: ${({ theme }) => theme.COLORS.TOMATO};
     cursor: pointer;
     display: inline-block;
   }

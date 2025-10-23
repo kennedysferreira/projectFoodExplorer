@@ -1,27 +1,41 @@
 import { Container } from "./style";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 
-export function Count({ onCountChange }) {
-  const [count, setCount] = useState(1);
+export function Count({ onCountChange, initialValue = 1 }) {
+  const [count, setCount] = useState(initialValue);
+  const isUserInteraction = useRef(false);
 
+  // Atualizar count quando initialValue mudar (sincronização externa)
   useEffect(() => {
-    if (count <= 0) {
-      setCount(1);
+    if (initialValue !== count && !isUserInteraction.current) {
+      setCount(initialValue);
     }
+    isUserInteraction.current = false;
+  }, [initialValue]);
 
-    if (count > 99) {
-      setCount(99);
+  // Notificar mudanças apenas quando for interação do usuário
+  useEffect(() => {
+    if (isUserInteraction.current && count >= 0 && count <= 99) {
+      onCountChange(count);
     }
-
-    onCountChange(count);
   }, [count, onCountChange]);
+
+  const handleDecrement = () => {
+    isUserInteraction.current = true;
+    setCount((prevCount) => Math.max(0, prevCount - 1));
+  };
+
+  const handleIncrement = () => {
+    isUserInteraction.current = true;
+    setCount((prevCount) => Math.min(99, prevCount + 1));
+  };
 
   return (
     <Container>
-      <FiMinusCircle onClick={() => setCount((prevCount) => prevCount - 1)} />
+      <FiMinusCircle onClick={handleDecrement} />
       <span>{count}</span>
-      <FiPlusCircle onClick={() => setCount((prevCount) => prevCount + 1)} />
+      <FiPlusCircle onClick={handleIncrement} />
     </Container>
   );
 }

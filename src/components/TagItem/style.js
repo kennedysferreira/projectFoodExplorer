@@ -18,7 +18,7 @@ export const Container = styled.div`
     display: flex;
 
     path {
-      color: ${({ theme }) => theme.COLORS.CAKE_200};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
   }
 

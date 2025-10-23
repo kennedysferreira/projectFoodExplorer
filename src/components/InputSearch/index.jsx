@@ -1,8 +1,8 @@
 import { Input } from "../Input";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, SearchResult } from "./style";
-import { IoSearchOutline } from "react-icons/io5";
+import { Container, SearchResult, MobileSearchModal } from "./style";
+import { IoSearchOutline, IoClose } from "react-icons/io5";
 import { useState, useEffect, useRef } from "react";
 import { PlateContext } from "../../hooks/plateRequest";
 
@@ -16,6 +16,7 @@ export function InputSearch() {
   const [allPlates, setAllPlates] = useState([]);
   const [inputSearch, setInputSearch] = useState("");
   const [platesAndIngredients, setPlateAndIngredients] = useState([]);
+  const [mobileModalOpen, setMobileModalOpen] = useState(false);
 
   function allPlatesResult() {
     setAllPlates(showAllPlates);
@@ -28,6 +29,23 @@ export function InputSearch() {
     }
   }
 
+  function handleMobileSearchClick() {
+    // No mobile, abre modal
+    if (window.innerWidth < 768) {
+      setMobileModalOpen(true);
+      setAllPlates(showAllPlates);
+    } else {
+      // Tablet/Desktop, comportamento normal
+      allPlatesResult();
+    }
+  }
+
+  function closeMobileModal() {
+    setMobileModalOpen(false);
+    setInputSearch("");
+    setIsOpen(false);
+  }
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -37,6 +55,7 @@ export function InputSearch() {
 
   useEffect(() => {
     if (inputSearch.length < 1) {
+      setPlateAndIngredients([]);
       return;
     }
 
@@ -60,25 +79,69 @@ export function InputSearch() {
     const uniqueFilteredSearch = [...new Set(allFilteredSearch)];
 
     setPlateAndIngredients(uniqueFilteredSearch);
-  }, [inputSearch]);
+  }, [inputSearch, allPlates]);
 
   return (
-    <Container onClick={allPlatesResult} ref={selectRef}>
-      <Input
-        value={inputSearch}
-        onChange={(e) => setInputSearch(e.target.value)}
-        placeholder={"Busque por pratos ou ingredients"}
-        icon={IoSearchOutline}
-      />
+    <>
+      <Container onClick={handleMobileSearchClick} ref={selectRef}>
+        <Input
+          value={inputSearch}
+          onChange={(e) => setInputSearch(e.target.value)}
+          placeholder={"Busque por pratos ou ingredientes"}
+          icon={IoSearchOutline}
+        />
 
-      <SearchResult $isOpen={isOpen}>
-        {platesAndIngredients &&
-          platesAndIngredients.map((item) => (
-            <p onClick={() => navigate(`/plateview/${item.id}`)} key={item.id}>
-              {item.name}
-            </p>
-          ))}
-      </SearchResult>
-    </Container>
+        <SearchResult $isOpen={isOpen && !mobileModalOpen}>
+          {platesAndIngredients &&
+            platesAndIngredients.map((item) => (
+              <p onClick={() => { navigate(`/plateview/${item.id}`); setIsOpen(false); }} key={item.id}>
+                {item.name}
+              </p>
+            ))}
+        </SearchResult>
+      </Container>
+
+      {/* Mobile Search Modal */}
+      <MobileSearchModal $isOpen={mobileModalOpen}>
+        <div className="modal-header">
+          <h2>Buscar</h2>
+          <button className="close-btn" onClick={closeMobileModal}>
+            <IoClose size={28} />
+          </button>
+        </div>
+
+        <div className="search-input">
+          <Input
+            value={inputSearch}
+            onChange={(e) => setInputSearch(e.target.value)}
+            placeholder={"Busque por pratos ou ingredientes"}
+            icon={IoSearchOutline}
+            autoFocus
+          />
+        </div>
+
+        <div className="search-results">
+          {inputSearch.length > 0 && platesAndIngredients.length > 0 ? (
+            platesAndIngredients.map((item) => (
+              <button
+                className="result-item"
+                onClick={() => {
+                  navigate(`/plateview/${item.id}`);
+                  closeMobileModal();
+                }}
+                key={item.id}
+              >
+                <IoSearchOutline size={18} />
+                <span>{item.name}</span>
+              </button>
+            ))
+          ) : inputSearch.length > 0 ? (
+            <p className="no-results">Nenhum prato encontrado</p>
+          ) : (
+            <p className="hint">Digite para buscar pratos ou ingredientes</p>
+          )}
+        </div>
+      </MobileSearchModal>
+    </>
   );
 }

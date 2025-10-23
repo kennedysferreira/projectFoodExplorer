@@ -4,10 +4,10 @@ import { Container } from "./style";
 import { FaRegEdit } from "react-icons/fa";
 import { USER_ROLE } from "../../utils/roles";
 import { useAuth } from "../../hooks/auth";
-import { PlateContext } from "../../hooks/plateRequest";
+import { useCart } from "../../hooks/useCart";
 
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 import { TbArrowBadgeRightFilled } from "react-icons/tb";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -21,35 +21,29 @@ export function Card({
   isFavorite,
   ...rest
 }) {
-  const [countValue, setCountValue] = useState(1);
   const { user, createFavorite } = useAuth();
   const navigate = useNavigate();
-  const { updateRequest } = useContext(PlateContext);
+  const { addItem, updateQuantity, removeItem, getItemQuantity } = useCart();
 
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
   const plateValue = plate.value.replace(".", ",");
 
+  // Obter quantidade atual do carrinho
+  const currentQuantity = getItemQuantity(plate.id);
+
+  // Manipular mudança de quantidade
   const handleCountChange = (newValue) => {
-    setCountValue(newValue);
+    if (newValue === 0) {
+      removeItem(plate.id);
+    } else {
+      updateQuantity(plate.id, newValue);
+    }
   };
 
-  function calculate() {
-    const allRequest = JSON.parse(localStorage.getItem("pedidos")) || [];
-    const priceInReal = plate.value ? plate.value.replace(",", ".") : null;
-
-    const price = (priceInReal * countValue).toFixed(2).replace(".", ",");
-
-    const newRequest = {
-      plate,
-      price,
-      quantity: countValue,
-    };
-
-    allRequest.push(newRequest);
-    localStorage.setItem("pedidos", JSON.stringify(allRequest));
-
-    updateRequest();
-  }
+  // Adicionar primeiro item
+  const handleAddFirstItem = () => {
+    addItem(plate, 1);
+  };
 
   async function handleFavoritePlate(plate_id) {
     await createFavorite(plate_id);
@@ -99,19 +93,32 @@ export function Card({
         </>
       )}
 
-      <img src={plateImage && plateImage} alt="" onClick={view} />
-      <p className="plate-name" onClick={view}>
-        {plate.name} <TbArrowBadgeRightFilled size={18} />
-      </p>
-      <p className="plate-description">{plate.description}</p>
-      <p className="value">R$ {verifyPlateValue()}</p>
+      <div className="image-wrapper" onClick={view}>
+        <img src={plateImage && plateImage} alt={plate.name} />
+      </div>
 
-      {verifyAdminRole ? null : (
-        <div className="plate-count">
-          <Count onCountChange={handleCountChange} />
-          <Button title={"Incluir"} onClick={calculate} />
+      <div className="plate-info">
+        <p className="plate-name" onClick={view}>
+          {plate.name}
+        </p>
+        <p className="plate-description">{plate.description}</p>
+
+        <div className="plate-footer">
+          <p className="value">R$ {verifyPlateValue()}</p>
+
+          {verifyAdminRole ? null : (
+            <div className="plate-actions">
+              {currentQuantity === 0 ? (
+                <button className="add-button" onClick={handleAddFirstItem}>
+                  <span>+</span>
+                </button>
+              ) : (
+                <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
+              )}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </Container>
   );
 }

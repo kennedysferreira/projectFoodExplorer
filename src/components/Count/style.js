@@ -4,26 +4,33 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
+  background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
+  border-radius: 10rem;
+  padding: 0.6rem 1.2rem;
 
   > svg {
     cursor: pointer;
-    color: red;
+    color: ${({ theme }) => theme.COLORS.LIGHT_400};
+    font-size: 2.2rem;
+    transition: all 200ms ease-in-out;
 
     &:hover {
-      line,
-      circle {
-        transition: all 300ms ease-in-out;
-        color: ${({ theme }) => theme.COLORS.CAKE_200};
-      }
+      color: ${({ theme }) => theme.COLORS.TOMATO};
+      transform: scale(1.15);
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
   }
 
   span {
-    font-size: 2rem;
-  }
-
-  > svg {
-    font-size: 3rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    min-width: 3rem;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
   }
 `;

@@ -42,7 +42,7 @@ export const MobileContent = styled.div`
   }
 
   .request-content {
-    border: 2px solid ${({ theme }) => theme.COLORS.DARK_1000};
+    border: 2px solid ${({ theme }) => theme.COLORS.DARK_ELEVATED};
     border-radius: 8px;
     padding: 1rem;
     display: flex;
@@ -108,7 +108,7 @@ export const DesktopContent = styled.div`
   }
 
   .table-container {
-    border: 2px solid ${({ theme }) => theme.COLORS.DARK_1000};
+    border: 2px solid ${({ theme }) => theme.COLORS.DARK_ELEVATED};
     border-bottom: none;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
@@ -145,7 +145,7 @@ export const DesktopContent = styled.div`
 
     th,
     td {
-      border: 2px solid ${({ theme }) => theme.COLORS.DARK_1000};
+      border: 2px solid ${({ theme }) => theme.COLORS.DARK_ELEVATED};
       text-align: start;
     }
 
@@ -175,7 +175,7 @@ export const DesktopContent = styled.div`
     transition: all ease-in-out 200ms;
 
     &:hover {
-      background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+      background-color: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
     }
   }
 

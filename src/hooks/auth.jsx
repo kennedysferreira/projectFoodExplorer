@@ -1,6 +1,7 @@
 import { api } from "../service/api";
 import { toast } from "react-toastify";
 import { createContext, useContext, useState, useEffect } from "react";
+import { PlateContext } from "./plateRequest";
 
 export const AuthContext = createContext({});
 
@@ -19,6 +20,9 @@ function AuthProvider({ children }) {
       localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
       setData({ user });
+
+      // Recarregar pratos após login bem-sucedido
+      window.dispatchEvent(new Event('userLoggedIn'));
     } catch (error) {
       if (error.response) {
         toast.dark(error.response.data.message);

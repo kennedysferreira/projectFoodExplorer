@@ -14,7 +14,7 @@ export const Container = styled.div`
     transition: all 300ms ease-in-out;
 
     &:hover {
-      color: ${({ theme }) => theme.COLORS.CAKE_200};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
   }
 
@@ -22,7 +22,7 @@ export const Container = styled.div`
     font-size: 12px;
     font-weight: 400;
     line-height: 160%;
-    color: ${({ theme }) => theme.COLORS.CAKE_200};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
       position: absolute;

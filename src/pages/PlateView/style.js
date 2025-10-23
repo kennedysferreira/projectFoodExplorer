@@ -88,9 +88,49 @@ export const ConfirmOrder = styled.div`
     max-width: 20rem;
   }
 
+  /* Botão de adicionar (mesmo estilo do Card) */
+  .add-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.8rem;
+    height: 4.8rem;
+    background: ${({ theme }) => theme.COLORS.TOMATO};
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    max-width: none;
+
+    span {
+      font-size: 3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      line-height: 1;
+    }
+
+    &:hover {
+      background: ${({ theme }) => theme.COLORS.PRIMARY_HOVER};
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
     justify-content: flex-start;
     margin: 0;
+
+    .add-button {
+      width: 5.6rem;
+      height: 5.6rem;
+
+      span {
+        font-size: 3.6rem;
+      }
+    }
   }
 `;
 

@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.COLORS.DARK_400};
+  background-color: ${({ theme }) => theme.COLORS.DARK};
   z-index: 99;
   display: none;
 
@@ -62,7 +62,7 @@ export const Container = styled.div`
       content: "";
       display: block;
       height: 2px;
-      background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+      background-color: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
       width: calc(100% - 2rem);
       margin: 1rem 0 0 -1rem;
     }
@@ -72,7 +72,7 @@ export const Container = styled.div`
 export const MenuHeader = styled.div`
   display: flex;
   align-items: end;
-  background-color: ${({ theme }) => theme.COLORS.DARK_700};
+  background-color: ${({ theme }) => theme.COLORS.DARK_BORDER};
   height: 11.4rem;
   cursor: pointer;
 

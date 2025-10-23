@@ -48,7 +48,7 @@ export const AboutUs = styled.div`
 
   span {
     text-decoration-line: underline;
-    color: ${({ theme }) => theme.COLORS.CAKE_200};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
   }
 
@@ -103,7 +103,7 @@ export const OpenHour = styled.div`
 `;
 
 export const SocialMedia = styled.div`
-  background-color: ${({ theme }) => theme.COLORS.DARK_1000};
+  background-color: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
   border-radius: 8px;
   max-width: 44rem;
   padding: 2rem;

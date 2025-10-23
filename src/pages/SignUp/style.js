@@ -47,7 +47,7 @@ export const Section = styled.section`
     max-width: 50rem;
     padding: 6rem;
     border-radius: 1.6rem;
-    background-color: ${({ theme }) => theme.COLORS.DARK_700};
+    background-color: ${({ theme }) => theme.COLORS.DARK_BORDER};
   }
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
@@ -73,7 +73,7 @@ export const MakeAccount = styled.p`
   font-size: 1.4rem;
 
   &:hover {
-    color: ${({ theme }) => theme.COLORS.CAKE_200};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
   }
 `;
 

@@ -63,20 +63,15 @@ export function Cart() {
     setModalIsOpen(false);
     const requestPlate = JSON.parse(localStorage.getItem("pedidos"));
 
-    if (!requestPlate) {
+    if (!requestPlate || requestPlate.length === 0) {
       toast.dark(
         "Nenhum pedido Registrado, verifique seu carrinho e tente novamente!"
       );
       return;
     }
 
-    const idPayment = await createPayment({
-      requestPlate,
-      plateSum: plateSum,
-    });
-
-    navigate(`/payment/${idPayment}`);
-    localStorage.removeItem("pedidos");
+    // Redirect to new checkout page
+    navigate("/checkout");
   }
 
   useEffect(() => {

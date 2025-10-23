@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-  margin: 6rem 0 4rem 2rem;
+  margin: 2rem 0;
   position: relative;
-  max-width: 110rem;
-  
+  width: 100%;
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
-    margin: 6rem 8rem 10rem 8rem;
+    margin: 3rem 0;
 
     &::before {
       left: -3px;
@@ -44,20 +43,11 @@ export const Container = styled.section`
   }
 
   @media (min-width: 1250px) {
-    margin: 6rem auto;
+    margin: 4rem 0;
   }
 
   > p:first-child {
-    font-size: 1.8rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    margin-bottom: 2.4rem;
-    position: relative;
-    z-index: 3;
-
-    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
-      font-size: 3.2rem;
-    }
+    display: none;
   }
 
   #children {

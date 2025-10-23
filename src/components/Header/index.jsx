@@ -1,46 +1,37 @@
 import { Button } from "../Button";
 import { SideMenu } from "../SideMenu";
-import { RxExit } from "react-icons/rx";
-import { PiReceipt } from "react-icons/pi";
 import { InputSearch } from "../InputSearch";
 import { FoodExplorer } from "../FoodExplorer";
 import { useNavigate } from "react-router-dom";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { FoodExplorerAdmin } from "../FoodExplorerAdmin";
 import {
   Container,
   MenuHamburger,
-  Logout,
-  MenuOptions,
-  OrderCount,
   Logo,
-  Requests,
+  NavLinks,
+  ProfileMenu,
+  AdminActions,
 } from "./style";
 
-import { IoIosOptions } from "react-icons/io";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { FiUser, FiHeart, FiClock, FiLogOut } from "react-icons/fi";
+import { TbChefHat } from "react-icons/tb";
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
-import { PlateContext } from "../../hooks/plateRequest";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Header() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
-  const { plateRequest } = useContext(PlateContext);
-  const [countPlate, setCountPlate] = useState([]);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [optionsIsOpen, setOptionsIsOpen] = useState(false);
-  const selectRef = useRef(null);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileRef = useRef(null);
 
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
 
-  const messageToAdminAccess = verifyAdminRole
-    ? "Novo Prato"
-    : `Pedidos (${countPlate ? countPlate.length : 0})`;
-
   function handleOutsideClick(event) {
-    if (selectRef.current && !selectRef.current.contains(event.target)) {
-      setOptionsIsOpen(false);
+    if (profileRef.current && !profileRef.current.contains(event.target)) {
+      setProfileMenuOpen(false);
     }
   }
 
@@ -49,77 +40,101 @@ export function Header() {
     navigate("/");
   }
 
-  function handlerOpenOptions() {
-    setOptionsIsOpen((prevState) => (prevState === true ? false : true));
-  }
-
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
-
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
-  useEffect(() => {
-    setCountPlate(plateRequest);
-  }, [plateRequest]);
-
-  useEffect(() => {
-    const requestStorage = JSON.parse(localStorage.getItem("pedidos"));
-
-    setCountPlate(requestStorage);
-  }, []);
-
   return (
     <Container>
-      <MenuHamburger>
-        <RxHamburgerMenu size={32} onClick={() => setMenuIsOpen(true)} />
+      {/* Mobile: Hamburguer Menu */}
+      <MenuHamburger onClick={() => setMenuIsOpen(true)}>
+        <RxHamburgerMenu size={24} />
       </MenuHamburger>
 
+      {/* Logo */}
       <Logo onClick={() => navigate("/")}>
         {verifyAdminRole ? <FoodExplorerAdmin /> : <FoodExplorer />}
       </Logo>
 
+      {/* Search Bar */}
       <InputSearch />
 
-      <MenuOptions $isopen={optionsIsOpen} ref={selectRef}>
-        <IoIosOptions size={32} onClick={handlerOpenOptions} />
-        <div className="options-header">
+      {/* Desktop: Navigation Links (apenas para usuários) */}
+      {!verifyAdminRole && (
+        <NavLinks>
+          <button className="nav-link" onClick={() => navigate("/order-history")}>
+            <FiClock size={18} />
+            <span>Pedidos</span>
+          </button>
+          <button className="nav-link" onClick={() => navigate("/favorites")}>
+            <FiHeart size={18} />
+            <span>Favoritos</span>
+          </button>
+        </NavLinks>
+      )}
+
+      {/* Desktop: Admin Actions */}
+      {verifyAdminRole && (
+        <AdminActions>
+          <Button
+            title="Novo Prato"
+            onClick={() => navigate("/newplate")}
+          />
+        </AdminActions>
+      )}
+
+      {/* Desktop: Profile Menu */}
+      <ProfileMenu ref={profileRef} $isOpen={profileMenuOpen}>
+        <button
+          className="profile-trigger"
+          onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+        >
+          <FiUser size={20} />
+          <span>{user.name || "Perfil"}</span>
+          <svg
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="currentColor"
+            className={profileMenuOpen ? "rotate" : ""}
+          >
+            <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" fill="none"/>
+          </svg>
+        </button>
+
+        <div className="profile-dropdown">
+          <button onClick={() => { navigate("/profile"); setProfileMenuOpen(false); }}>
+            <FiUser size={16} />
+            Meu Perfil
+          </button>
           {!verifyAdminRole && (
-            <p onClick={() => navigate("/favorites")}>Favoritos</p>
+            <button onClick={() => { navigate("/addresses"); setProfileMenuOpen(false); }}>
+              <TbChefHat size={16} />
+              Endereços
+            </button>
           )}
-          <p onClick={() => navigate("/order-history")}>Histórico de pedido</p>
-          <p onClick={() => navigate("/profile")}>Perfil</p>
-          <p onClick={() => navigate("/about")}>Quem somos</p>
+          <button onClick={() => { navigate("/order-history"); setProfileMenuOpen(false); }}>
+            <FiClock size={16} />
+            Pedidos
+          </button>
+          {!verifyAdminRole && (
+            <button onClick={() => { navigate("/favorites"); setProfileMenuOpen(false); }}>
+              <FiHeart size={16} />
+              Favoritos
+            </button>
+          )}
+          <div className="divider"></div>
+          <button onClick={handleLogout} className="logout">
+            <FiLogOut size={16} />
+            Sair
+          </button>
         </div>
-      </MenuOptions>
+      </ProfileMenu>
 
-      <Requests>
-        <Button
-          title={messageToAdminAccess}
-          icon={verifyAdminRole ? null : PiReceipt}
-          onClick={
-            verifyAdminRole
-              ? () => navigate("/newplate")
-              : () => navigate("/cart")
-          }
-        />
-      </Requests>
-
-      <Logout onClick={handleLogout}>
-        <RxExit size={32} />
-      </Logout>
-
-      <OrderCount onClick={() => navigate("/cart")}>
-        {verifyAdminRole ? null : (
-          <>
-            <PiReceipt size={32} />
-            <span>{countPlate ? countPlate.length : 0}</span>
-          </>
-        )}
-      </OrderCount>
-
+      {/* Mobile: Side Menu */}
       <SideMenu
         menuIsOpen={menuIsOpen}
         menuIsClose={() => setMenuIsOpen(false)}

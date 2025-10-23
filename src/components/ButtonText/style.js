@@ -11,11 +11,11 @@ export const Container = styled.button`
 
   &:hover {
     transition: all 300ms ease-in-out;
-    color: ${({ theme }) => theme.COLORS.TOMATO_200};
+    color: ${({ theme }) => theme.COLORS.TOMATO};
 
     path {
       transition: all 300ms ease-in-out;
-      color: ${({ theme }) => theme.COLORS.TOMATO_200};
+      color: ${({ theme }) => theme.COLORS.TOMATO};
     }
   }
 `;

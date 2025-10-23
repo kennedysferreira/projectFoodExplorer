@@ -5,7 +5,7 @@ export const Container = styled.div`
 `;
 
 export const Placeholder = styled.div`
-  background-color: ${({ theme }) => theme.COLORS.DARK_900};
+  background-color: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
   border-radius: 8px;
   width: 100%;
 
@@ -43,7 +43,7 @@ export const Options = styled.li`
     text-transform: capitalize;
 
     &:hover {
-      background-color: ${({ theme }) => theme.COLORS.DARK_700};
+      background-color: ${({ theme }) => theme.COLORS.DARK_BORDER};
       border-radius: 8px;
     }
   }

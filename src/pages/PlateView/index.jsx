@@ -1,7 +1,7 @@
-import { useContext } from "react";
 import { api } from "../../service/api";
 import { Tag } from "../../components/Tag";
 import { useAuth } from "../../hooks/auth";
+import { useCart } from "../../hooks/useCart";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { USER_ROLE } from "../../utils/roles";
@@ -9,9 +9,9 @@ import { Count } from "../../components/Count";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { FloatingCart } from "../../components/FloatingCart";
 import { Button } from "../../components/Button";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { PlateContext } from "../../hooks/plateRequest";
 import { ButtonText } from "../../components/ButtonText";
 import {
   Container,
@@ -28,42 +28,32 @@ export function PlateView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [plate, setPlate] = useState({});
+  const { addItem, updateQuantity, removeItem, getItemQuantity } = useCart();
 
   const imageURL = `${api.defaults.baseURL}/files/`;
 
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
 
-  const [countValue, setCountValue] = useState(1);
+  // Obter quantidade atual do carrinho
+  const currentQuantity = getItemQuantity(plate.id);
 
-  const priceInReal = plate.value ? plate.value.replace(",", ".") : null;
-
-  const price = (priceInReal * countValue).toFixed(2).replace(".", ",");
-
-  const { updateRequest } = useContext(PlateContext);
-
+  // Manipular mudança de quantidade (mesma lógica do Card)
   const handleCountChange = (newValue) => {
-    setCountValue(newValue);
+    if (newValue === 0) {
+      removeItem(plate.id);
+    } else {
+      updateQuantity(plate.id, newValue);
+    }
   };
 
-  function calculate() {
-    const allRequest = JSON.parse(localStorage.getItem("pedidos")) || [];
+  // Adicionar primeiro item (mesma lógica do Card)
+  const handleAddFirstItem = () => {
+    addItem(plate, 1);
+  };
 
-    const newRequest = {
-      plate,
-      price: price.replace(",", "."),
-    };
-
-    allRequest.push(newRequest);
-    localStorage.setItem("pedidos", JSON.stringify(allRequest));
-    updateRequest();
-  }
-
-  function handleSelectOption() {
-    if (verifyAdminRole) {
-      navigate(`/editplate/${id}`);
-      return;
-    }
-    calculate();
+  // Admin: editar prato
+  function handleEditPlate() {
+    navigate(`/editplate/${id}`);
   }
 
   useEffect(() => {
@@ -106,16 +96,23 @@ export function PlateView() {
           </Tags>
 
           <ConfirmOrder>
-            {verifyAdminRole ? null : (
-              <Count onCountChange={handleCountChange} />
+            {verifyAdminRole ? (
+              <Button title="Editar prato" onClick={handleEditPlate} />
+            ) : (
+              <>
+                {currentQuantity === 0 ? (
+                  <button className="add-button" onClick={handleAddFirstItem}>
+                    <span>+</span>
+                  </button>
+                ) : (
+                  <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
+                )}
+              </>
             )}
-            <Button
-              title={verifyAdminRole ? "Editar prato" : `Incluir R$ - ${price}`}
-              onClick={handleSelectOption}
-            />
           </ConfirmOrder>
         </div>
       </Main>
+      <FloatingCart />
       <Footer />
     </Container>
   );
