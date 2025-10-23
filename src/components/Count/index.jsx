@@ -1,8 +1,8 @@
 import { Container } from "./style";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 
-export function Count({ onCountChange, initialValue = 1 }) {
+export const Count = memo(function Count({ onCountChange, initialValue = 1 }) {
   const [count, setCount] = useState(initialValue);
   const isUserInteraction = useRef(false);
 
@@ -38,4 +38,4 @@ export function Count({ onCountChange, initialValue = 1 }) {
       <FiPlusCircle onClick={handleIncrement} />
     </Container>
   );
-}
+});

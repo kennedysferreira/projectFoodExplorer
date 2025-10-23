@@ -1,5 +1,6 @@
+import { memo } from "react";
 import { Container } from "./style";
 
-export function Tag({ title }) {
+export const Tag = memo(function Tag({ title }) {
   return <Container>{title}</Container>;
-}
+});

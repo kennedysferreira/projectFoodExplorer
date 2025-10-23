@@ -147,5 +147,48 @@ export default createGlobalStyle`
       width: 2rem;
       margin-right: 1.2rem;
     }
+
+
+  /* ========================================
+     SMOOTH SCROLL
+     ======================================== */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ========================================
+     PAGE TRANSITIONS
+     ======================================== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Aplicar fade-in em todas as páginas principais */
+  main {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  /* Aplicar em containers de página */
+  [data-page-container] {
+    animation: fadeIn 0.3s ease-out;
+  }
 `;
 

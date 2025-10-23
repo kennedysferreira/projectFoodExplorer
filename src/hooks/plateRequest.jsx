@@ -7,6 +7,7 @@ export const PlateContext = createContext();
 export const PlateProvider = ({ children }) => {
   const [plateRequest, setPlateRequest] = useState([]);
   const [showAllPlates, setShowAllPlates] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const updateRequest = () => {
     setPlateRequest(JSON.parse(localStorage.getItem("pedidos")));
@@ -15,10 +16,13 @@ export const PlateProvider = ({ children }) => {
 
   const searchPlates = async () => {
     try {
+      setIsLoading(true);
       const response = await api.get("/plates");
       setShowAllPlates(response.data);
     } catch (error) {
       console.error("Erro ao carregar pratos:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +43,7 @@ export const PlateProvider = ({ children }) => {
 
   return (
     <PlateContext.Provider
-      value={{ updateRequest, plateRequest, showAllPlates, searchPlates }}>
+      value={{ updateRequest, plateRequest, showAllPlates, searchPlates, isLoading }}>
       {children}
     </PlateContext.Provider>
   );

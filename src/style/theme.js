@@ -1,13 +1,10 @@
 export const theme = {
   COLORS: {
-    // ========================================
-    // COR PRINCIPAL - IDENTIDADE VISUAL SUSHIHANA
-    // ========================================
-    TOMATO: "#ec2927", // Vermelho principal da logo - USAR EM TODOS OS BOTÕES PRIMÁRIOS
-    PRIMARY: "#ec2927", // Mesmo que TOMATO (mantido para consistência)
+    TOMATO: "#ec2927", // Vermelho principal da logo
+    PRIMARY: "#ec2927",
     PRIMARY_HOVER: "#ff3937", // Hover de ações principais
 
-    // Base Colors (mantidas para compatibilidade)
+    // Base Colors
     LIGHT_100: "#FDFDFD",
     LIGHT_200: "#FFFAF1",
     LIGHT_300: "#E1E1E6",

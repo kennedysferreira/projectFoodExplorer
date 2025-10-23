@@ -7,12 +7,12 @@ import { useAuth } from "../../hooks/auth";
 import { useCart } from "../../hooks/useCart";
 
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
 import { TbArrowBadgeRightFilled } from "react-icons/tb";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-export function Card({
+export const Card = memo(function Card({
   onCountChange,
   plateImage,
   view,
@@ -94,7 +94,12 @@ export function Card({
       )}
 
       <div className="image-wrapper" onClick={view}>
-        <img src={plateImage && plateImage} alt={plate.name} />
+        <img
+          src={plateImage && plateImage}
+          alt={plate.name}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
       <div className="plate-info">
@@ -121,4 +126,4 @@ export function Card({
       </div>
     </Container>
   );
-}
+})

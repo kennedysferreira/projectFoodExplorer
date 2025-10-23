@@ -2,6 +2,7 @@ import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { FloatingCart } from "../../components/FloatingCart";
+import { Skeleton } from "../../components/Skeleton";
 import cardImage from "../../assets/mainImg.png";
 import { Section } from "../../components/Section";
 import { Tabs } from "../../components/Tabs";
@@ -18,7 +19,7 @@ import { PlateContext } from "../../hooks/plateRequest";
 export function Home() {
   const navigate = new useNavigate();
 
-  const { showAllPlates } = useContext(PlateContext);
+  const { showAllPlates, isLoading } = useContext(PlateContext);
 
   const [isFavorite, setIsFavorite] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Refeição");
@@ -59,7 +60,10 @@ export function Home() {
           }
         });
       },
-      { threshold: 0.5, rootMargin: "-100px 0px -50% 0px" }
+      {
+        threshold: 0.3, // Lower threshold works better for all screen sizes
+        rootMargin: "-150px 0px -40% 0px" // Works for mobile, tablet and desktop
+      }
     );
 
     Object.values(sectionRefs.current).forEach((ref) => {
@@ -74,14 +78,6 @@ export function Home() {
       <Header plates={selectPlates} />
 
       <main>
-        <Banner>
-          <img src={cardImage} alt="" />
-
-          <BannerText>
-            <h3>Sabores inigualáveis</h3>
-            <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
-          </BannerText>
-        </Banner>
 
         <Tabs
           tabs={plateSections.map((section) => ({
@@ -93,7 +89,22 @@ export function Home() {
         />
 
         <div className="categories-container">
-          {plateSections &&
+          {isLoading ? (
+            plateSections.map((section) => (
+              <CategorySection
+                key={section}
+                ref={(el) => (sectionRefs.current[section] = el)}
+                data-category={section}>
+                <h2 className="category-title">{section}</h2>
+                <Section title={section}>
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <Skeleton key={`skeleton-${section}-${index}`} />
+                  ))}
+                </Section>
+              </CategorySection>
+            ))
+          ) : (
+            plateSections &&
             plateSections.map((section) => (
               <CategorySection
                 key={section}
@@ -116,7 +127,8 @@ export function Home() {
                       ))}
                 </Section>
               </CategorySection>
-            ))}
+            ))
+          )}
         </div>
 
         <FloatingCart />

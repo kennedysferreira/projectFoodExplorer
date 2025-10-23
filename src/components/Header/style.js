@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.header`
   /* Mobile First */
   height: 7rem;
-  background-color: ${({ theme }) => theme.COLORS.DARK_SURFACE};
-  border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
+  background-color: ${({ theme }) => theme.COLORS.DARK};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;

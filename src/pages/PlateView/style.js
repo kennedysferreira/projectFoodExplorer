@@ -192,3 +192,120 @@ export const InfoText = styled.div`
     }
   }
 `;
+
+
+export const LoadingContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  width: 100%;
+  max-width: 90rem;
+
+  @keyframes shimmer {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+
+  .skeleton-image {
+    width: 25rem;
+    height: 25rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.COLORS.DARK_SURFACE} 0px,
+      ${({ theme }) => theme.COLORS.DARK_BORDER} 40px,
+      ${({ theme }) => theme.COLORS.DARK_SURFACE} 80px
+    );
+    background-size: 468px;
+    animation: shimmer 1.5s infinite ease-out;
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.SMALL_G}) {
+      width: 30rem;
+      height: 30rem;
+    }
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      width: 39rem;
+      height: 39rem;
+      margin: 0;
+    }
+  }
+
+  .skeleton-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      align-items: flex-start;
+    }
+  }
+
+  .skeleton-title,
+  .skeleton-description,
+  .skeleton-tag,
+  .skeleton-button {
+    background: linear-gradient(
+      90deg,
+      ${({ theme }) => theme.COLORS.DARK_SURFACE} 0px,
+      ${({ theme }) => theme.COLORS.DARK_BORDER} 40px,
+      ${({ theme }) => theme.COLORS.DARK_SURFACE} 80px
+    );
+    background-size: 468px;
+    animation: shimmer 1.5s infinite ease-out;
+    border-radius: ${({ theme }) => theme.RADIUS.MD};
+  }
+
+  .skeleton-title {
+    width: 60%;
+    height: 3rem;
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      height: 4rem;
+    }
+  }
+
+  .skeleton-description {
+    width: 90%;
+    height: 4.8rem;
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      height: 6.6rem;
+    }
+  }
+
+  .skeleton-tags {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      justify-content: flex-start;
+    }
+  }
+
+  .skeleton-tag {
+    width: 8rem;
+    height: 3.2rem;
+    border-radius: ${({ theme }) => theme.RADIUS.XL};
+  }
+
+  .skeleton-button {
+    width: 16rem;
+    height: 4.8rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+    grid-template-columns: 39rem 1fr;
+    gap: 5rem;
+  }
+`;
+

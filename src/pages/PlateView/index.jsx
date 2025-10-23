@@ -21,6 +21,7 @@ import {
   BackButton,
   Main,
   InfoText,
+  LoadingContainer,
 } from "./style";
 
 export function PlateView() {
@@ -28,16 +29,15 @@ export function PlateView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [plate, setPlate] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const { addItem, updateQuantity, removeItem, getItemQuantity } = useCart();
 
   const imageURL = `${api.defaults.baseURL}/files/`;
 
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
 
-  // Obter quantidade atual do carrinho
   const currentQuantity = getItemQuantity(plate.id);
 
-  // Manipular mudança de quantidade (mesma lógica do Card)
   const handleCountChange = (newValue) => {
     if (newValue === 0) {
       removeItem(plate.id);
@@ -46,24 +46,28 @@ export function PlateView() {
     }
   };
 
-  // Adicionar primeiro item (mesma lógica do Card)
   const handleAddFirstItem = () => {
     addItem(plate, 1);
   };
 
-  // Admin: editar prato
   function handleEditPlate() {
     navigate(`/editplate/${id}`);
   }
 
   useEffect(() => {
     async function searchPlate() {
-      const { data } = await api.get(`/plates/${id}`);
-      setPlate(data);
-      return;
+      try {
+        setIsLoading(true);
+        const { data } = await api.get(`/plates/${id}`);
+        setPlate(data);
+      } catch (error) {
+        console.error("Erro ao carregar prato:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
     searchPlate();
-  }, []);
+  }, [id]);
 
   return (
     <Container>
@@ -78,39 +82,62 @@ export function PlateView() {
           />
         </BackButton>
 
-        <div>
-          <PlateImage src={`${imageURL}/${String(plate.image)}`} alt="" />
-        </div>
+        {isLoading ? (
+          <LoadingContainer>
+            <div className="skeleton-image" />
+            <div className="skeleton-content">
+              <div className="skeleton-title" />
+              <div className="skeleton-description" />
+              <div className="skeleton-tags">
+                <div className="skeleton-tag" />
+                <div className="skeleton-tag" />
+                <div className="skeleton-tag" />
+              </div>
+              <div className="skeleton-button" />
+            </div>
+          </LoadingContainer>
+        ) : (
+          <>
+            <div>
+              <PlateImage 
+                src={`${imageURL}/${String(plate.image)}`} 
+                alt={plate.name || ""}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
 
-        <div>
-          <InfoText>
-            <h3>{plate.name}</h3>
-            <p>{plate.description}</p>
-          </InfoText>
+            <div>
+              <InfoText>
+                <h3>{plate.name}</h3>
+                <p>{plate.description}</p>
+              </InfoText>
 
-          <Tags>
-            {plate.ingredients &&
-              plate.ingredients.map((ingredient) => (
-                <Tag key={String(ingredient.id)} title={ingredient.name} />
-              ))}
-          </Tags>
+              <Tags>
+                {plate.ingredients &&
+                  plate.ingredients.map((ingredient) => (
+                    <Tag key={String(ingredient.id)} title={ingredient.name} />
+                  ))}
+              </Tags>
 
-          <ConfirmOrder>
-            {verifyAdminRole ? (
-              <Button title="Editar prato" onClick={handleEditPlate} />
-            ) : (
-              <>
-                {currentQuantity === 0 ? (
-                  <button className="add-button" onClick={handleAddFirstItem}>
-                    <span>+</span>
-                  </button>
+              <ConfirmOrder>
+                {verifyAdminRole ? (
+                  <Button title="Editar prato" onClick={handleEditPlate} />
                 ) : (
-                  <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
+                  <>
+                    {currentQuantity === 0 ? (
+                      <button className="add-button" onClick={handleAddFirstItem}>
+                        <span>+</span>
+                      </button>
+                    ) : (
+                      <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-          </ConfirmOrder>
-        </div>
+              </ConfirmOrder>
+            </div>
+          </>
+        )}
       </Main>
       <FloatingCart />
       <Footer />

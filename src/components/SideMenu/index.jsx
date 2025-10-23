@@ -1,62 +1,85 @@
 import { Footer } from "../Footer";
 import { IoMdClose } from "react-icons/io";
-import { InputSearch } from "../InputSearch";
-import { Container, MenuHeader } from "./style";
+import { FiLogOut } from "react-icons/fi";
+import { Container, MenuHeader, MenuContent, MenuFooter } from "./style";
 
-import { useEffect } from "react";
-import { useAuth } from "../../hooks/auth";
-import { USER_ROLE } from "../../utils/roles";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../hooks/auth';
+import { USER_ROLE } from '../../utils/roles';
+import { useNavigate } from 'react-router-dom';
 
-export function SideMenu({ menuIsOpen, menuIsClose, plates }) {
+export function SideMenu({ menuIsOpen, menuIsClose }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
+  const [isClosing, setIsClosing] = useState(false);
+
+  function handleCloseMenu() {
+    setIsClosing(true);
+    setTimeout(() => {
+      menuIsClose();
+      setIsClosing(false);
+    }, 300);
+  }
+
+  function handleNavigation(path) {
+    navigate(path);
+    handleCloseMenu();
+  }
+
+  function handleLogout() {
+    logout();
+    handleCloseMenu();
+  }
 
   useEffect(() => {
     function handleResize() {
-      window.innerWidth > 1024 ? menuIsClose() : null;
+      if (window.innerWidth > 1024) {
+        menuIsClose();
+      }
     }
 
     handleResize();
-
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [menuIsClose]);
 
   return (
-    <Container data-menu-is-open={menuIsOpen}>
-      <MenuHeader className="menu-header">
-        <div onClick={menuIsClose}>
-          {" "}
-          <IoMdClose size={34} /> Menu{" "}
-        </div>
+    <Container data-menu-is-open={menuIsOpen} data-menu-is-closing={isClosing}>
+      <MenuHeader onClick={handleCloseMenu}>
+        <IoMdClose size={24} />
+        <span>Menu</span>
       </MenuHeader>
 
-      <InputSearch plates={plates} />
+      <MenuContent>
+        {verifyAdminRole && (
+          <button className="menu-option" onClick={() => handleNavigation('/newplate')}>
+            Novo Prato
+          </button>
+        )}
+        {!verifyAdminRole && (
+          <button className="menu-option" onClick={() => handleNavigation('/favorites')}>
+            Favoritos
+          </button>
+        )}
+        <button className="menu-option" onClick={() => handleNavigation('/order-history')}>
+          Histórico de pedidos
+        </button>
+        <button className="menu-option" onClick={() => handleNavigation('/profile')}>
+          Perfil
+        </button>
+      </MenuContent>
 
-      {verifyAdminRole && (
-        <p className="option" onClick={() => navigate("/newplate")}>
-          Novo Prato
-        </p>
-      )}
-      {!verifyAdminRole && (
-        <p className="option" onClick={() => navigate("/favorites")}>
-          Favoritos
-        </p>
-      )}
-      <p className="option" onClick={() => navigate("/order-history")}>
-        Histórico de pedidos
-      </p>
-      <p className="option" onClick={() => navigate("/profile")}>
-        Perfil
-      </p>
-      <p className="option" onClick={() => logout()}>
-        Sair
-      </p>
+      <MenuFooter>
+        <button className="logout-button" onClick={handleLogout}>
+          <FiLogOut size={20} />
+          <span>Sair</span>
+        </button>
+      </MenuFooter>
+
       <Footer />
     </Container>
   );

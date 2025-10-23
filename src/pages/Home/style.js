@@ -38,16 +38,16 @@ export const Container = styled.div`
 export const CategorySection = styled.section`
   /* Mobile First */
   margin-bottom: 3.2rem;
-  scroll-margin-top: 6rem; /* Altura aproximada das Tabs fixas */
+  scroll-margin-top: 13rem; /* Altura aproximada das Tabs fixas */
 
   h2.category-title {
+    
     display: block !important;
     font-family: "Poppins", sans-serif;
     font-size: 1.8rem;
     font-weight: 500;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     margin-bottom: 2rem;
-    padding: 0 1.6rem;
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -55,7 +55,7 @@ export const CategorySection = styled.section`
   /* Tablet */
   @media (min-width: 768px) {
     margin-bottom: 4rem;
-    scroll-margin-top: 7rem;
+    scroll-margin-top: 14rem;
 
     h2.category-title {
       font-size: 2.4rem;
@@ -67,7 +67,7 @@ export const CategorySection = styled.section`
   /* Desktop */
   @media (min-width: 1024px) {
     margin-bottom: 5rem;
-    scroll-margin-top: 8rem;
+    scroll-margin-top: 16rem;
 
     h2.category-title {
       font-size: 3.2rem;
