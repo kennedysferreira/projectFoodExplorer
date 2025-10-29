@@ -9,10 +9,36 @@ export function AddressCard({
   onDelete,
   onSetDefault,
   showActions = true,
+  variant = "default",
+  isSelected = false,
+  onSelect,
   ...rest
 }) {
+  // Variant checkout - layout horizontal minimalista
+  if (variant === "checkout") {
+    return (
+      <Container
+        $variant="checkout"
+        $isSelected={isSelected}
+        onClick={onSelect}
+        {...rest}
+      >
+        <div className="checkout-icon">
+          <MdLocationOn size={20} />
+        </div>
+        <div className="checkout-content">
+          <p className="checkout-label">{address.label || "Endereço"}</p>
+          <p className="checkout-street">
+            {address.street}, {address.number}
+          </p>
+        </div>
+      </Container>
+    );
+  }
+
+  // Variant default - layout vertical completo
   return (
-    <Container isDefault={address.is_default} {...rest}>
+    <Container $isDefault={address.is_default} {...rest}>
       <div className="address-header">
         <MdLocationOn size={24} className="location-icon" />
         {address.is_default && (

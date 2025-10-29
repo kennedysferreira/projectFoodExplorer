@@ -6,8 +6,6 @@ import { FaCreditCard } from "react-icons/fa";
 export function PaymentMethodSelector({ selected, onSelect }) {
   return (
     <Container>
-      <h3>Método de Pagamento</h3>
-
       <div className="options">
         <PaymentOption
           selected={selected === "pix"}

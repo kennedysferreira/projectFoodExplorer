@@ -71,9 +71,49 @@ export function OrderHistory() {
   };
 
   const handleStatusOrder = async (statusUpdate) => {
-    toast.dark("Pedido atualizado.");
-    setUpdateStatusOrder(statusUpdate);
-    await updateOrderHistory({ id: idOrderToUpdate, newStatus: statusUpdate });
+    try {
+      // Mapear status do formato antigo para o novo sistema
+      const reverseStatusMap = {
+        'pendente': 'pending',
+        'processando': 'confirmed',
+        'cozinha': 'preparing',
+        'finalizado': 'completed',
+        'cancelado': 'cancelled'
+      };
+
+      const newStatus = reverseStatusMap[statusUpdate] || statusUpdate;
+
+      // Atualizar no backend
+      await api.patch(`/orders/${idOrderToUpdate}/status`, {
+        status: newStatus
+      });
+
+      toast.success("Pedido atualizado!");
+      setUpdateStatusOrder(statusUpdate);
+
+      // Recarregar lista de pedidos
+      const response = await api.get("/orders");
+      const adaptedOrders = response.data.map(order => ({
+        id: order.id,
+        status: mapOrderStatus(order.status),
+        updated_at: order.updated_at,
+        plates: JSON.stringify(
+          order.items.map(item => ({
+            quantity: item.quantity,
+            plate: {
+              name: item.plate?.name || item.plate_name || "Item"
+            }
+          }))
+        )
+      }));
+      setHistoryOrder(adaptedOrders);
+
+      // Fallback para sistema legado se disponível
+      await updateOrderHistory({ id: idOrderToUpdate, newStatus: statusUpdate });
+    } catch (error) {
+      console.error("[OrderHistory] Error updating order status:", error);
+      toast.error("Erro ao atualizar status do pedido");
+    }
   };
 
   useEffect(() => {
@@ -83,17 +123,57 @@ export function OrderHistory() {
 
   useEffect(() => {
     async function searchMyOrders() {
-      if (verifyAdminRole) {
-        const adminOrder = await api.get("/payment");
-        setHistoryOrder(adminOrder.data);
-      } else {
-        const userOrder = await api.get("/payment");
-        setHistoryOrder(userOrder.data);
+      try {
+        // Tentar buscar do novo sistema de orders
+        const response = await api.get("/orders");
+
+        // Adaptar dados do novo sistema para o formato esperado
+        const adaptedOrders = response.data.map(order => ({
+          id: order.id,
+          status: mapOrderStatus(order.status),
+          updated_at: order.updated_at,
+          // Converter items do novo formato para o antigo formato de plates
+          plates: JSON.stringify(
+            order.items.map(item => ({
+              quantity: item.quantity,
+              plate: {
+                name: item.plate?.name || item.plate_name || "Item"
+              }
+            }))
+          )
+        }));
+
+        setHistoryOrder(adaptedOrders);
+      } catch (error) {
+        console.error("[OrderHistory] Error fetching orders:", error);
+
+        // Fallback para sistema legado
+        try {
+          const legacyResponse = await api.get("/payment");
+          setHistoryOrder(legacyResponse.data);
+        } catch (legacyError) {
+          console.error("[OrderHistory] Error fetching legacy payments:", legacyError);
+          toast.error("Erro ao carregar histórico de pedidos");
+        }
       }
     }
 
     searchMyOrders();
   }, []);
+
+  // Mapear status do novo sistema para o formato antigo
+  function mapOrderStatus(status) {
+    const statusMap = {
+      'pending': 'pendente',
+      'confirmed': 'processando',
+      'preparing': 'cozinha',
+      'delivering': 'cozinha',
+      'completed': 'finalizado',
+      'cancelled': 'cancelado'
+    };
+
+    return statusMap[status] || status;
+  }
 
   return (
     <Container>

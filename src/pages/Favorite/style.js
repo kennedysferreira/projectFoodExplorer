@@ -39,42 +39,33 @@ export const Container = styled.div`
     }
   }
 
-  .favorites-content {
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4rem;
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 120rem;
 
     @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
-      justify-content: space-evenly;
+      gap: 2.4rem;
+      grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    }
+
+    @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
+      gap: 3.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
     }
   }
-`;
 
-export const Plate = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+  .empty-favorites {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
 
-  img {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 100%;
-    object-fit: cover;
-  }
-
-  h3 {
-    font-family: "Poppins";
-    font-weight: 500;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 1.2rem;
-    line-height: 160%;
-    color: ${({ theme }) => theme.COLORS.TOMATO};
-    cursor: pointer;
-    display: inline-block;
+    p {
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme.COLORS.LIGHT_400};
+      font-family: "Poppins", sans-serif;
+    }
   }
 `;

@@ -34,8 +34,6 @@ export function CouponInput({ orderValue, onCouponApplied }) {
 
   return (
     <Container>
-      <h3>Cupom de Desconto</h3>
-
       {!appliedCoupon ? (
         <div className="coupon-input-group">
           <Input

@@ -1,17 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-
-  h3 {
-    font-family: "Poppins";
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-  }
-
   .options {
     display: grid;
     grid-template-columns: 1fr;
@@ -35,7 +24,7 @@ export const DeliveryOption = styled.button`
     selected ? theme.COLORS.DARK_SURFACE : theme.COLORS.DARK_ELEVATED};
   border: 2px solid ${({ theme, selected }) =>
     selected ? theme.COLORS.TOMATO : theme.COLORS.DARK_SURFACE};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.RADIUS.SM};
 
   cursor: pointer;
   transition: all 200ms ease-in-out;

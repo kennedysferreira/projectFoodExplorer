@@ -117,25 +117,33 @@ export const CartSection = styled.section`
 
   .cart-item {
     display: flex;
+    align-items: center;
     gap: 1.6rem;
-    padding: 2rem;
+    padding: 1.4rem 2rem;
     background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
     border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
     border-radius: 1.2rem;
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+      background: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
+    }
 
     @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
       gap: 2.4rem;
+      padding: 2.4rem;
     }
 
     img {
-      width: 8rem;
-      height: 8rem;
+      width: 7rem;
+      height: 7rem;
       object-fit: cover;
       border-radius: 0.8rem;
+      flex-shrink: 0;
 
       @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
-        width: 10rem;
-        height: 10rem;
+        width: 9rem;
+        height: 9rem;
       }
     }
 
@@ -143,53 +151,70 @@ export const CartSection = styled.section`
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 0.6rem;
+      min-width: 0;
 
-      .item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 1.6rem;
+      .item-name {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        line-height: 1.4;
 
-        .item-name {
-          font-size: 1.6rem;
-          font-weight: 500;
-          color: ${({ theme }) => theme.COLORS.LIGHT_100};
-
-          @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
-            font-size: 1.8rem;
-          }
-        }
-
-        .item-price {
-          font-size: 1.6rem;
-          font-weight: 500;
-          color: ${({ theme }) => theme.COLORS.LIGHT_100};
-          white-space: nowrap;
+        @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
+          font-size: 1.8rem;
         }
       }
 
-      .item-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
+      .item-description {
+        font-size: 1.3rem;
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
+          font-size: 1.4rem;
+        }
+      }
+
+      .item-price {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        margin-top: 0.4rem;
+
+        @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
+          font-size: 1.8rem;
+        }
       }
     }
 
     .remove-btn {
-      align-self: flex-start;
-      padding: 0.8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
       background: transparent;
       border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
       border-radius: 0.8rem;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
-      font-size: 1.3rem;
+      font-size: 1.6rem;
       cursor: pointer;
+      flex-shrink: 0;
       transition: all 200ms ease-in-out;
 
       &:hover {
+        background: ${({ theme }) => theme.COLORS.DARK_BORDER};
         border-color: ${({ theme }) => theme.COLORS.TOMATO};
         color: ${({ theme }) => theme.COLORS.TOMATO};
+      }
+
+      svg {
+        pointer-events: none;
       }
     }
   }
@@ -200,6 +225,23 @@ export const CheckoutSection = styled.section`
   flex-direction: column;
   gap: 2.4rem;
 
+  .checkout-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    > h3 {
+      font-family: "Poppins";
+      font-size: 2.4rem;
+      font-weight: 500;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+      @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
+        font-size: 2.8rem;
+      }
+    }
+  }
+
   .checkout-step {
     display: flex;
     flex-direction: column;
@@ -208,44 +250,6 @@ export const CheckoutSection = styled.section`
     background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
     border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
     border-radius: 1.2rem;
-
-    h3 {
-      font-family: "Poppins";
-      font-size: 2rem;
-      font-weight: 500;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    }
-
-    .step-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.6rem;
-
-      .add-address-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        padding: 0.8rem 1.6rem;
-        background: ${({ theme }) => theme.COLORS.DARK_BORDER};
-        border: none;
-        border-radius: 0.8rem;
-        color: ${({ theme }) => theme.COLORS.LIGHT_300};
-        font-size: 1.4rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 200ms ease-in-out;
-
-        &:hover {
-          background: ${({ theme }) => theme.COLORS.DARK_BORDER};
-          color: ${({ theme }) => theme.COLORS.LIGHT_100};
-        }
-
-        svg {
-          color: ${({ theme }) => theme.COLORS.LIGHT_100};
-        }
-      }
-    }
 
     .empty-addresses {
       display: flex;
@@ -295,24 +299,39 @@ export const CheckoutSection = styled.section`
       }
     }
 
-    .addresses-grid {
-      display: grid;
-      grid-template-columns: 1fr;
+    .addresses-list {
+      display: flex;
+      flex-direction: column;
       gap: 1.2rem;
+    }
 
-      .address-option {
-        cursor: pointer;
-        border-radius: 0.8rem;
-        transition: all 200ms ease-in-out;
+    .add-address-btn-inline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 1.6rem;
+      width: 100%;
+      margin-top: 1.2rem;
 
-        &:hover {
-          transform: translateY(-2px);
-        }
+      background: transparent;
+      border: 2px dashed ${({ theme }) => theme.COLORS.DARK_BORDER};
+      border-radius: 0.8rem;
+      color: ${({ theme }) => theme.COLORS.LIGHT_400};
+      font-size: 1.5rem;
+      font-weight: 500;
 
-        &.selected {
-          outline: 2px solid ${({ theme }) => theme.COLORS.TOMATO};
-          outline-offset: 2px;
-        }
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+
+      &:hover {
+        border-color: ${({ theme }) => theme.COLORS.TOMATO};
+        color: ${({ theme }) => theme.COLORS.TOMATO};
+        background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
+      }
+
+      svg {
+        flex-shrink: 0;
       }
     }
   }

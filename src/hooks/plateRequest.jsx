@@ -5,14 +5,8 @@ import { createContext, useState } from "react";
 export const PlateContext = createContext();
 
 export const PlateProvider = ({ children }) => {
-  const [plateRequest, setPlateRequest] = useState([]);
   const [showAllPlates, setShowAllPlates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const updateRequest = () => {
-    setPlateRequest(JSON.parse(localStorage.getItem("pedidos")));
-    return plateRequest;
-  };
 
   const searchPlates = async () => {
     try {
@@ -43,7 +37,7 @@ export const PlateProvider = ({ children }) => {
 
   return (
     <PlateContext.Provider
-      value={{ updateRequest, plateRequest, showAllPlates, searchPlates, isLoading }}>
+      value={{ showAllPlates, searchPlates, isLoading }}>
       {children}
     </PlateContext.Provider>
   );

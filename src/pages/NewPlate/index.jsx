@@ -52,6 +52,12 @@ export function NewPlate() {
     setNewIngredient("");
   }
 
+  function handleRemoveIngredient(deleted) {
+    setIngredients((prevState) =>
+      prevState.filter((ingredient) => ingredient !== deleted)
+    );
+  }
+
   async function handleCreatePlate() {
     const transformeValueToNumber = Number(value.replace(",", "."));
 

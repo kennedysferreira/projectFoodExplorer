@@ -9,6 +9,24 @@ export default defineConfig({
     })
   ],
 
+  // Otimizações de build para produção
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separa React e dependências core
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // Separa UI libraries
+          'ui-vendor': ['styled-components', 'react-icons', '@splidejs/react-splide'],
+          // Separa utilities
+          'utils-vendor': ['axios', 'react-toastify'],
+        },
+      },
+    },
+    // Aumenta o limite de chunk size warning
+    chunkSizeWarningLimit: 600,
+  },
+
   server: {
     port: 5173,
     host: true,

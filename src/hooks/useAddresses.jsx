@@ -1,20 +1,25 @@
 import { api } from "../service/api";
 import { toast } from "react-toastify";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./auth";
 
 export const AddressContext = createContext({});
 
 function AddressProvider({ children }) {
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   async function getAddresses() {
     try {
       setLoading(true);
+      console.log("[AddressProvider] Fetching addresses...");
       const response = await api.get("/addresses");
+      console.log("[AddressProvider] Addresses loaded:", response.data.length);
       setAddresses(response.data);
       return response.data;
     } catch (error) {
+      console.error("[AddressProvider] Failed to load addresses:", error.response?.status, error.response?.data);
       if (error.response) {
         toast.dark(error.response.data.message);
       } else {
@@ -103,11 +108,26 @@ function AddressProvider({ children }) {
     return addresses.find(addr => addr.is_default) || addresses[0] || null;
   }
 
+  // Carregar endereços quando usuário estiver autenticado
   useEffect(() => {
-    const user = localStorage.getItem("@foodexplorer:user");
     if (user) {
+      console.log("[AddressProvider] User authenticated, loading addresses");
       getAddresses();
     }
+  }, [user]);
+
+  // Escutar evento de login para recarregar endereços
+  useEffect(() => {
+    const handleUserLogin = () => {
+      console.log("[AddressProvider] User logged in event, reloading addresses");
+      getAddresses();
+    };
+
+    window.addEventListener('userLoggedIn', handleUserLogin);
+
+    return () => {
+      window.removeEventListener('userLoggedIn', handleUserLogin);
+    };
   }, []);
 
   return (

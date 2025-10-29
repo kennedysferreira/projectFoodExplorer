@@ -8,12 +8,8 @@ export const Container = styled.div`
   border-radius: 0.8rem;
   overflow: hidden;
   position: relative;
-  transition: all 300ms ease-in-out;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-
-  &:active {
-    transform: scale(0.98);
-  }
 
   .image-wrapper {
     width: 100%;
@@ -22,14 +18,17 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     overflow: hidden;
+    position: relative;
+    
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 300ms ease-in-out;
+      cursor: pointer;
+      border-radius: 0.8rem;
     }
   }
 
@@ -37,7 +36,7 @@ export const Container = styled.div`
     padding: 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.3rem;
     flex: 1;
   }
 
@@ -75,7 +74,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: auto;
-    padding-top: 0.8rem;
+    padding-top: 0.2rem;
   }
 
   .plate-actions {
@@ -85,6 +84,9 @@ export const Container = styled.div`
   }
 
   .add-button {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,7 +96,14 @@ export const Container = styled.div`
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 200ms ease-in-out;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    /* Remove blue tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
 
     span {
       font-size: 2rem;
@@ -104,9 +113,20 @@ export const Container = styled.div`
     }
 
     &:active {
-      background: ${({ theme }) => theme.COLORS.TOMATO};
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
+  }
+
+  .count-wrapper {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1rem;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 10rem;
+    padding: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .add-to-cart-button {
@@ -123,36 +143,40 @@ export const Container = styled.div`
   .favorite-icon,
   .edit-icon {
     position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    font-size: 2rem;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 0.6rem;
-    border-radius: 50%;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2.4rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
     cursor: pointer;
-    z-index: 2;
-    transition: all 200ms ease-in-out;
-    backdrop-filter: blur(4px);
+    z-index: 4;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+
+    /* Remove blue tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
 
     &:active {
-      background: rgba(0, 0, 0, 0.8);
       transform: scale(0.9);
     }
   }
 
   .favorite-icon {
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+    &.favorited {
+      color: ${({ theme }) => theme.COLORS.TOMATO};
+    }
+
     &:active {
-      path {
-        color: ${({ theme }) => theme.COLORS.TOMATO};
-      }
+      color: ${({ theme }) => theme.COLORS.TOMATO};
     }
   }
 
   .edit-icon {
     &:active {
-      path {
-        color: ${({ theme }) => theme.COLORS.CARROT_100};
-      }
+      color: ${({ theme }) => theme.COLORS.CARROT_100};
     }
   }
 
@@ -160,30 +184,17 @@ export const Container = styled.div`
   @media (min-width: 768px) {
     border-radius: 1rem;
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
     .image-wrapper {
       height: 18rem;
-
-      &:hover img {
-        transform: scale(1.1);
-      }
     }
 
     .plate-info {
       padding: 1.4rem;
-      gap: 0.8rem;
+      gap: 0.4rem;
     }
 
     .plate-name {
       font-size: 1.6rem;
-
-      &:hover {
-        color: ${({ theme }) => theme.COLORS.TOMATO};
-      }
     }
 
     .plate-description {
@@ -198,27 +209,32 @@ export const Container = styled.div`
     .add-button {
       width: 3.6rem;
       height: 3.6rem;
+      bottom: 1.4rem;
+      right: 1.2rem;
 
       span {
         font-size: 2.2rem;
       }
 
       &:hover {
-        background: ${({ theme }) => theme.COLORS.TOMATO};
-        transform: scale(1.1);
+        transform: scale(1.15);
+        box-shadow: 0 4px 16px rgba(224, 30, 90, 0.5);
       }
+    }
+
+    .count-wrapper {
+      bottom: 1.4rem;
+      right: 1.2rem;
     }
 
     .favorite-icon,
     .edit-icon {
-      right: 1rem;
-      top: 1rem;
-      font-size: 2.2rem;
-      padding: 0.7rem;
+      right: 1.2rem;
+      top: 1.2rem;
+      font-size: 2.8rem;
 
       &:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: scale(1.1);
+        transform: scale(1.2);
       }
     }
   }
@@ -251,18 +267,24 @@ export const Container = styled.div`
     .add-button {
       width: 4rem;
       height: 4rem;
+      bottom: 1.6rem;
+      right: 1.4rem;
 
       span {
         font-size: 2.4rem;
       }
     }
 
+    .count-wrapper {
+      bottom: 1.6rem;
+      right: 1.4rem;
+    }
+
     .favorite-icon,
     .edit-icon {
-      right: 1.2rem;
-      top: 1.2rem;
-      font-size: 2.4rem;
-      padding: 0.8rem;
+      right: 1.4rem;
+      top: 1.4rem;
+      font-size: 3.2rem;
     }
   }
 `;

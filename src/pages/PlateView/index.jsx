@@ -32,7 +32,7 @@ export function PlateView() {
   const [isLoading, setIsLoading] = useState(true);
   const { addItem, updateQuantity, removeItem, getItemQuantity } = useCart();
 
-  const imageURL = `${api.defaults.baseURL}/files/`;
+  const imageURL = `${api.defaults.baseURL}/files`;
 
   const verifyAdminRole = user.role === USER_ROLE.ADMIN;
 

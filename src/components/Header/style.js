@@ -162,11 +162,40 @@ export const AdminActions = styled.div`
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
     display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.SPACING.MD};
     width: auto;
 
     button {
       white-space: nowrap;
+    }
+
+    button:not(.admin-link) {
       min-width: 15rem;
+    }
+
+    .admin-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      background: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
+      border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
+      border-radius: ${({ theme }) => theme.RADIUS.MD};
+      color: ${({ theme }) => theme.COLORS.TEXT_PRIMARY};
+      cursor: pointer;
+      transition: ${({ theme }) => theme.TRANSITION.FAST};
+
+      &:hover {
+        border-color: ${({ theme }) => theme.COLORS.TOMATO};
+        background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
+        color: ${({ theme }) => theme.COLORS.TOMATO};
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
   }
 `;

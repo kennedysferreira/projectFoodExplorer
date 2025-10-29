@@ -6,7 +6,7 @@ export const Container = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: ${({ theme }) => theme.Z_INDEX.MODAL};
 
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
 
-  padding: 2rem;
+  padding: ${({ theme }) => theme.SPACING.LG};
   overflow-y: auto;
 `;
 
@@ -26,7 +26,7 @@ export const Content = styled.div`
   overflow-y: auto;
 
   background: ${({ theme }) => theme.COLORS.DARK_BORDER};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.RADIUS.SM};
 
   animation: slideDown 0.3s ease-out;
 
@@ -43,7 +43,7 @@ export const Content = styled.div`
 
   /* Scrollbar customizado */
   &::-webkit-scrollbar {
-    width: 8px;
+    width: ${({ theme }) => theme.SPACING.XS};
   }
 
   &::-webkit-scrollbar-track {
@@ -52,7 +52,7 @@ export const Content = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
-    border-radius: 4px;
+    border-radius: ${({ theme }) => theme.RADIUS.XS};
   }
 
   &::-webkit-scrollbar-thumb:hover {

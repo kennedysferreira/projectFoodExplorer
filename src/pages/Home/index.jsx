@@ -27,7 +27,7 @@ export function Home() {
 
   const plateSections = ["Refeição", "Sobremesas", "Bebidas", "Sushi"];
 
-  const imageURL = `${api.defaults.baseURL}/files/`;
+  const imageURL = `${api.defaults.baseURL}/files`;
 
   const selectPlates = () => {
     return showAllPlates;

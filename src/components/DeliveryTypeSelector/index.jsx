@@ -4,8 +4,6 @@ import { MdDeliveryDining, MdStorefront } from "react-icons/md";
 export function DeliveryTypeSelector({ selected, onSelect, deliveryFee = 8.0 }) {
   return (
     <Container>
-      <h3>Tipo de Entrega</h3>
-
       <div className="options">
         <DeliveryOption
           selected={selected === "delivery"}

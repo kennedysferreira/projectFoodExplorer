@@ -56,9 +56,17 @@ export function SideMenu({ menuIsOpen, menuIsClose }) {
 
       <MenuContent>
         {verifyAdminRole && (
-          <button className="menu-option" onClick={() => handleNavigation('/newplate')}>
-            Novo Prato
-          </button>
+          <>
+            <button className="menu-option" onClick={() => handleNavigation('/newplate')}>
+              Novo Prato
+            </button>
+            <button className="menu-option" onClick={() => handleNavigation('/admin-payments')}>
+              Pagamentos Pendentes
+            </button>
+            <button className="menu-option" onClick={() => handleNavigation('/payment-history')}>
+              Histórico de Pagamentos
+            </button>
+          </>
         )}
         {!verifyAdminRole && (
           <button className="menu-option" onClick={() => handleNavigation('/favorites')}>

@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Container } from "./style";
 import { Button } from "../Button";
 import { useLoyalty } from "../../hooks/useLoyalty";
-import { FaStar, FaGift } from "react-icons/fa";
+import { FaGift } from "react-icons/fa";
 
 export function LoyaltyPointsDisplay({ onPointsUsed, showUseOption = true }) {
   const { balance, calculateDiscount, canUsePoints, usePoints, loading } = useLoyalty();
   const [pointsToUse, setPointsToUse] = useState(0);
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   async function handleUsePoints() {
     if (pointsToUse < 100) {
       return;
@@ -32,11 +33,6 @@ export function LoyaltyPointsDisplay({ onPointsUsed, showUseOption = true }) {
 
   return (
     <Container>
-      <div className="points-header">
-        <FaStar size={24} />
-        <h3>Pontos de Fidelidade</h3>
-      </div>
-
       <div className="points-balance">
         <div className="balance-info">
           <strong>{balance} pontos</strong>

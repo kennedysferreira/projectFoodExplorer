@@ -1,5 +1,4 @@
 import { Count } from "../Count";
-import { Button } from "../Button";
 import { Container } from "./style";
 import { FaRegEdit } from "react-icons/fa";
 import { USER_ROLE } from "../../utils/roles";
@@ -7,13 +6,11 @@ import { useAuth } from "../../hooks/auth";
 import { useCart } from "../../hooks/useCart";
 
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, memo } from "react";
+import { useEffect, memo } from "react";
 
-import { TbArrowBadgeRightFilled } from "react-icons/tb";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export const Card = memo(function Card({
-  onCountChange,
   plateImage,
   view,
   plate,
@@ -81,7 +78,7 @@ export const Card = memo(function Card({
         <>
           {verifyStatusFavorite() ? (
             <FaHeart
-              className="favorite-icon"
+              className="favorite-icon favorited"
               onClick={() => handleFavoritePlate(plate.id)}
             />
           ) : (
@@ -93,13 +90,26 @@ export const Card = memo(function Card({
         </>
       )}
 
-      <div className="image-wrapper" onClick={view}>
+      <div className="image-wrapper">
         <img
           src={plateImage && plateImage}
           alt={plate.name}
           loading="lazy"
           decoding="async"
+          onClick={view}
         />
+
+        {!verifyAdminRole && currentQuantity === 0 && (
+          <button className="add-button" onClick={handleAddFirstItem}>
+            <span>+</span>
+          </button>
+        )}
+
+        {!verifyAdminRole && currentQuantity > 0 && (
+          <div className="count-wrapper">
+            <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
+          </div>
+        )}
       </div>
 
       <div className="plate-info">
@@ -110,18 +120,6 @@ export const Card = memo(function Card({
 
         <div className="plate-footer">
           <p className="value">R$ {verifyPlateValue()}</p>
-
-          {verifyAdminRole ? null : (
-            <div className="plate-actions">
-              {currentQuantity === 0 ? (
-                <button className="add-button" onClick={handleAddFirstItem}>
-                  <span>+</span>
-                </button>
-              ) : (
-                <Count onCountChange={handleCountChange} initialValue={currentQuantity} />
-              )}
-            </div>
-          )}
         </div>
       </div>
     </Container>

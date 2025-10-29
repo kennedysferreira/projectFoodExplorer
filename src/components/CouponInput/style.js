@@ -5,13 +5,6 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 
-  h3 {
-    font-family: "Poppins";
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-  }
-
   .coupon-input-group {
     display: flex;
     gap: 1.2rem;
@@ -39,7 +32,7 @@ export const Container = styled.div`
 
     background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
     border: 2px solid ${({ theme }) => theme.COLORS.TOMATO};
-    border-radius: 8px;
+    border-radius: ${({ theme }) => theme.RADIUS.SM};
 
     .coupon-info {
       display: flex;
@@ -98,10 +91,6 @@ export const Container = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
-    h3 {
-      font-size: 2rem;
-    }
-
     .coupon-input-group {
       flex-wrap: nowrap;
     }

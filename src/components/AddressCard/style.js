@@ -2,21 +2,73 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding: 2rem;
+  flex-direction: ${({ $variant }) => $variant === "checkout" ? "row" : "column"};
+  align-items: ${({ $variant }) => $variant === "checkout" ? "center" : "stretch"};
+  gap: ${({ $variant }) => $variant === "checkout" ? "1.6rem" : "1.6rem"};
+  padding: ${({ $variant }) => $variant === "checkout" ? "1.6rem" : "2rem"};
 
-  background: ${({ theme, isDefault }) =>
-    isDefault ? theme.COLORS.DARK_SURFACE : theme.COLORS.DARK_ELEVATED};
-  border: 2px solid ${({ theme, isDefault }) =>
-    isDefault ? theme.COLORS.TOMATO : theme.COLORS.DARK_SURFACE};
-  border-radius: 8px;
+  background: ${({ theme, $isDefault, $variant, $isSelected }) =>
+    $variant === "checkout"
+      ? $isSelected
+        ? theme.COLORS.DARK_SURFACE
+        : "transparent"
+      : $isDefault
+      ? theme.COLORS.DARK_SURFACE
+      : theme.COLORS.DARK_ELEVATED};
+  border: ${({ theme, $isDefault, $variant, $isSelected }) =>
+    $variant === "checkout"
+      ? $isSelected
+        ? `2px solid ${theme.COLORS.TOMATO}`
+        : `1px solid ${theme.COLORS.DARK_BORDER}`
+      : $isDefault
+      ? `2px solid ${theme.COLORS.TOMATO}`
+      : `2px solid ${theme.COLORS.DARK_SURFACE}`};
+  border-radius: ${({ theme }) => theme.RADIUS.SM};
 
-  transition: all 200ms ease-in-out;
+  cursor: ${({ $variant }) => $variant === "checkout" ? "pointer" : "default"};
+  transition: all ${({ theme }) => theme.TRANSITION.NORMAL};
 
   &:hover {
-    border-color: ${({ theme }) => theme.COLORS.TOMATO};
+    border-color: ${({ theme, $variant }) =>
+      $variant === "checkout" ? theme.COLORS.TOMATO : theme.COLORS.TOMATO};
+    background: ${({ theme, $variant }) =>
+      $variant === "checkout" ? theme.COLORS.DARK_SURFACE : "initial"};
   }
+
+  /* Estilos variant checkout */
+  ${({ $variant }) => $variant === "checkout" && `
+    .checkout-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      svg {
+        color: ${props => props.theme.COLORS.LIGHT_400};
+      }
+    }
+
+    .checkout-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 0;
+
+      .checkout-label {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: ${props => props.theme.COLORS.LIGHT_100};
+        line-height: 1.4;
+      }
+
+      .checkout-street {
+        font-size: 1.4rem;
+        color: ${props => props.theme.COLORS.LIGHT_400};
+        line-height: 1.4;
+      }
+    }
+  `}
 
   .address-header {
     display: flex;
@@ -35,9 +87,9 @@ export const Container = styled.div`
 
       background: ${({ theme }) => theme.COLORS.TOMATO};
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      border-radius: 4px;
+      border-radius: ${({ theme }) => theme.RADIUS.XS};
 
-      font-size: 1.2rem;
+      font-size: ${({ theme }) => theme.FONT_SIZE.XS};
       font-weight: 500;
     }
   }
@@ -89,7 +141,7 @@ export const Container = styled.div`
 
       svg {
         cursor: pointer;
-        transition: all 200ms ease-in-out;
+        transition: all ${({ theme }) => theme.TRANSITION.NORMAL};
       }
 
       .edit-icon {

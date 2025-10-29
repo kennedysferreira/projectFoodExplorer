@@ -48,6 +48,7 @@ function OrderProvider({ children }) {
   async function createOrder(orderData) {
     try {
       setLoading(true);
+
       const response = await api.post("/orders", orderData);
 
       toast.dark(response.data.message || "Pedido criado com sucesso!");
@@ -60,8 +61,13 @@ function OrderProvider({ children }) {
 
       return response.data;
     } catch (error) {
-      if (error.response) {
-        toast.dark(error.response.data.message);
+      console.error("Error creating order:", error.response?.data || error.message);
+
+      if (error.response?.data) {
+        const errorMessage = error.response.data.message ||
+                            error.response.data.error ||
+                            "Erro ao criar pedido";
+        toast.error(errorMessage);
       } else {
         toast.dark("Não foi possível criar o pedido.");
       }

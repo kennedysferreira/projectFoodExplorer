@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.footer`
   /* Mobile First */
   width: 100%;
-  background-color: ${({ theme }) => theme.COLORS.DARK_SURFACE};
+  background-color: ${({ theme }) => theme.COLORS.DARK};
 
   display: flex;
   flex-direction: column;

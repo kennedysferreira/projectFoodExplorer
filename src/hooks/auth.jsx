@@ -95,23 +95,6 @@ function AuthProvider({ children }) {
     }
   }
 
-  async function createPayment({ plateSum, requestPlate }) {
-    try {
-      const insertPayment = await api.post("/payment", {
-        plate: JSON.stringify(requestPlate),
-        price: plateSum,
-      });
-
-      return insertPayment.data[0].id;
-    } catch (error) {
-      if (error.response) {
-        toast.dark(error.response.data.message);
-      } else {
-        toast.dark("Não foi possível fazer o pedido.");
-      }
-    }
-  }
-
   async function updatePayment(id) {
     try {
       await api.put(`/payment/qrcode/${id}`);
@@ -201,7 +184,6 @@ function AuthProvider({ children }) {
         createPlate,
         updatePlate,
         deletePlate,
-        createPayment,
         updatePayment,
         updateOrderHistory,
         createFavorite,

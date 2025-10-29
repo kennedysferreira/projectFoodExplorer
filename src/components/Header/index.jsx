@@ -14,7 +14,7 @@ import {
 } from "./style";
 
 import { RxHamburgerMenu } from "react-icons/rx";
-import { FiUser, FiHeart, FiClock, FiLogOut } from "react-icons/fi";
+import { FiUser, FiHeart, FiClock, FiLogOut, FiDollarSign, FiList } from "react-icons/fi";
 import { TbChefHat } from "react-icons/tb";
 import { useAuth } from "../../hooks/auth";
 import { USER_ROLE } from "../../utils/roles";
@@ -79,6 +79,13 @@ export function Header() {
       {/* Desktop: Admin Actions */}
       {verifyAdminRole && (
         <AdminActions>
+          <button
+            className="admin-link"
+            onClick={() => navigate("/admin-payments")}
+            title="Pagamentos Pendentes"
+          >
+            <FiDollarSign size={20} />
+          </button>
           <Button
             title="Novo Prato"
             onClick={() => navigate("/newplate")}
@@ -111,10 +118,29 @@ export function Header() {
             Meu Perfil
           </button>
           {!verifyAdminRole && (
-            <button onClick={() => { navigate("/addresses"); setProfileMenuOpen(false); }}>
+            <button onClick={() => {
+              navigate("/profile");
+              setProfileMenuOpen(false);
+              setTimeout(() => {
+                const element = document.querySelector('[data-section="addresses"]');
+                if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+              }, 100);
+            }}>
               <TbChefHat size={16} />
               Endereços
             </button>
+          )}
+          {verifyAdminRole && (
+            <>
+              <button onClick={() => { navigate("/admin-payments"); setProfileMenuOpen(false); }}>
+                <FiDollarSign size={16} />
+                Pagamentos Pendentes
+              </button>
+              <button onClick={() => { navigate("/payment-history"); setProfileMenuOpen(false); }}>
+                <FiList size={16} />
+                Histórico de Pagamentos
+              </button>
+            </>
           )}
           <button onClick={() => { navigate("/order-history"); setProfileMenuOpen(false); }}>
             <FiClock size={16} />

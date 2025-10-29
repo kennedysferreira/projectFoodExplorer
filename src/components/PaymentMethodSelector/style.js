@@ -1,21 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-
-  h3 {
-    font-family: "Poppins";
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.COLORS.LIGHT_100};
-  }
-
   .options {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.6rem;
+    gap: 1.2rem;
   }
 
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
@@ -27,47 +16,51 @@ export const Container = styled.div`
 
 export const PaymentOption = styled.button`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1.2rem;
-  padding: 2rem;
+  gap: 1.6rem;
+  padding: 1.6rem;
 
   background: ${({ theme, selected }) =>
-    selected ? theme.COLORS.DARK_SURFACE : theme.COLORS.DARK_ELEVATED};
-  border: 2px solid ${({ theme, selected }) =>
-    selected ? theme.COLORS.TOMATO : theme.COLORS.DARK_SURFACE};
-  border-radius: 8px;
+    selected ? theme.COLORS.DARK_SURFACE : "transparent"};
+  border: ${({ theme, selected }) =>
+    selected ? `2px solid ${theme.COLORS.TOMATO}` : `1px solid ${theme.COLORS.DARK_BORDER}`};
+  border-radius: ${({ theme }) => theme.RADIUS.SM};
 
   cursor: pointer;
   transition: all 200ms ease-in-out;
 
   &:hover {
     border-color: ${({ theme }) => theme.COLORS.TOMATO};
-    transform: translateY(-2px);
+    background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
   }
 
   svg {
     color: ${({ theme, selected }) =>
       selected ? theme.COLORS.TOMATO : theme.COLORS.LIGHT_400};
-    min-width: 3.2rem;
+    min-width: 2.4rem;
+    flex-shrink: 0;
   }
 
   .option-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    text-align: center;
+    align-items: flex-start;
+    gap: 0.4rem;
+    text-align: left;
+    flex: 1;
 
     strong {
       font-size: 1.6rem;
       font-weight: 500;
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      line-height: 1.4;
     }
 
     span {
       font-size: 1.3rem;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
+      line-height: 1.4;
     }
 
     .highlight {
@@ -75,9 +68,10 @@ export const PaymentOption = styled.button`
       padding: 0.4rem 0.8rem;
       background: ${({ theme }) => theme.COLORS.TOMATO};
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      border-radius: 4px;
+      border-radius: ${({ theme }) => theme.RADIUS.XS};
       font-weight: 500;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      width: fit-content;
     }
 
     .note {
@@ -87,10 +81,18 @@ export const PaymentOption = styled.button`
     }
   }
 
+  @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.MEDIUM}) {
+    padding: 2rem;
+
+    svg {
+      min-width: 2.8rem;
+    }
+  }
+
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
     .option-info {
       strong {
-        font-size: 1.8rem;
+        font-size: 1.7rem;
       }
 
       span {

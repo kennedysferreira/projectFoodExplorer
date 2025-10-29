@@ -4,28 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  padding: 2rem;
-
-  background: ${({ theme }) => theme.COLORS.DARK_SURFACE};
-  border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
-  border-radius: 8px;
-
-  .points-header {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-
-    svg {
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    }
-
-    h3 {
-      font-family: "Poppins";
-      font-size: 1.8rem;
-      font-weight: 500;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    }
-  }
 
   .points-balance {
     display: flex;
@@ -63,7 +41,7 @@ export const Container = styled.div`
       padding: 1.2rem;
 
       background: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
-      border-radius: 4px;
+      border-radius: ${({ theme }) => theme.RADIUS.XS};
 
       font-size: 1.3rem;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
@@ -93,7 +71,7 @@ export const Container = styled.div`
 
         background: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
         border: 1px solid ${({ theme }) => theme.COLORS.DARK_BORDER};
-        border-radius: 8px;
+        border-radius: ${({ theme }) => theme.RADIUS.SM};
 
         font-size: 1.6rem;
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
@@ -113,7 +91,7 @@ export const Container = styled.div`
 
         background: ${({ theme }) => theme.COLORS.DARK_BORDER};
         border: none;
-        border-radius: 8px;
+        border-radius: ${({ theme }) => theme.RADIUS.SM};
 
         font-size: 1.4rem;
         font-weight: 500;
@@ -132,7 +110,7 @@ export const Container = styled.div`
     .discount-preview {
       padding: 1.2rem;
       background: ${({ theme }) => theme.COLORS.DARK_ELEVATED};
-      border-radius: 4px;
+      border-radius: ${({ theme }) => theme.RADIUS.XS};
       text-align: center;
 
       p {
@@ -148,14 +126,6 @@ export const Container = styled.div`
 
     button {
       height: 4.8rem;
-    }
-  }
-
-  @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
-    .points-header {
-      h3 {
-        font-size: 2rem;
-      }
     }
   }
 `;

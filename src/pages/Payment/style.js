@@ -48,7 +48,7 @@ export const Container = styled.div`
 
 export const RequestList = styled.div`
   width: auto;
-  display: ${({ $isenable }) => ($isenable === "enable" ? "none" : "flex")};
+  display: flex;
   flex-direction: column;
   gap: 5rem;
   justify-content: center;
@@ -56,7 +56,6 @@ export const RequestList = styled.div`
   @media (min-width: ${({ theme }) => theme.MEDIA_QUERY.LARGE}) {
     width: 50%;
     align-items: start;
-    display: flex;
   }
 
   .plate-info {
@@ -144,7 +143,7 @@ export const RequestList = styled.div`
 
 export const StatusPayment = styled.div`
   width: 100%;
-  display: ${({ $isenable }) => ($isenable === "enable" ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5rem;
@@ -154,12 +153,7 @@ export const StatusPayment = styled.div`
   }
 
   @media (min-width: 1024px) {
-    display: flex;
     width: 55rem;
-
-    > button:nth-child(1) {
-      display: none;
-    }
   }
 
   .select-payment {
@@ -239,6 +233,45 @@ export const StatusPayment = styled.div`
     button {
       width: 16rem;
     }
+  }
+
+  .payment-actions {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+
+    button {
+      flex: 1;
+      padding: 1.5rem;
+      font-size: 1.6rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+
+      &:first-child {
+        background-color: ${({ theme }) => theme.COLORS.DARK_700};
+
+        &:hover {
+          filter: brightness(1.2);
+        }
+      }
+
+      &:last-child {
+        background-color: ${({ theme }) => theme.COLORS.TOMATO};
+
+        &:hover {
+          filter: brightness(1.2);
+        }
+      }
+    }
+  }
+
+  .pix-payment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 `;
 
